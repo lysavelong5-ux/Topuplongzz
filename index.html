@@ -5,101 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Longzztopup Angkor</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            background-color: #1e1e1e;
+            background-color: #1a1a1a;
             color: #ffffff;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .container {
             width: 100%;
-            max-width: 800px;
-            padding: 40px 20px;
-            box-sizing: border-box;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px 15px;
         }
 
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 35px;
+            gap: 15px;
+        }
+
+        .logo-container {
+            position: relative;
+            flex-shrink: 0;
         }
 
         .logo {
-            width: 90px;
-            height: 90px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 25px;
-            border: 2px solid #333;
+            /* 3D effect for logo */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 
+                        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+            border: 2px solid #2a2a2a;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
         }
 
         .profile-info h1 {
-            font-size: 24px;
-            margin: 0 0 8px 0;
+            font-size: 19px;
+            margin: 0 0 5px 0;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-weight: 700;
         }
 
         .verified-badge {
-            color: #1d9bf0;
-            font-size: 18px;
+            color: #ffffff;
+            background-color: #1da1f2;
+            font-size: 10px;
+            width: 14px;
+            height: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .profile-info p {
             margin: 0;
-            color: #b0b0b0;
-            font-size: 14px;
+            color: #9e9e9e;
+            font-size: 11px;
+            line-height: 1.4;
         }
 
         .cards-wrapper {
-            display: flex;
-            gap: 20px;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
 
         .card {
-            background-color: #dcdfe6;
-            color: #000000;
-            flex: 1;
-            padding: 25px 15px;
+            /* 3D Card Effect */
+            background: linear-gradient(145deg, #e6e9ef, #bec2cb);
+            color: #111111;
+            padding: 20px 8px;
             border-radius: 16px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 
+                        inset 0 2px 4px rgba(255, 255, 255, 0.8), 
+                        inset 0 -3px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        .card:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 
+                        inset 0 2px 3px rgba(0, 0, 0, 0.2);
         }
 
         .card h3 {
-            margin: 0 0 10px 0;
-            font-size: 20px;
-            font-weight: bold;
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            font-weight: 800;
+            color: #111111;
         }
 
         .card span {
-            font-size: 12px;
+            font-size: 10px;
             color: #555555;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .footer {
             width: 100%;
             text-align: center;
-            padding: 15px;
-            font-size: 12px;
-            color: #888888;
-            background-color: #181818;
+            padding: 12px;
+            font-size: 10px;
+            color: #777777;
+            background-color: #141414;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
@@ -108,44 +139,36 @@
     <div class="container">
         <!-- ផ្នែក Profile -->
         <div class="header">
-            <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="logo">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="logo">
+            </div>
             <div class="profile-info">
-                <h1>Longzztopup Angkor <span class="verified-badge">✔</span></h1>
+                <h1>Longzztopup Angkor <span class="verified-badge">✓</span></h1>
                 <p>Topup game store Free Fire Mobile Roblox PUBG</p>
             </div>
         </div>
 
-        <!-- ផ្នែក Cards សម្រាប់ជ្រើសរើសហ្គេម -->
+        <!-- ផ្នែក Cards បែប 3D -->
         <div class="cards-wrapper">
             <div class="card">
                 <h3>Free Fire</h3>
-                <span>Topup</span>
+                <span>TOPUP</span>
             </div>
             <div class="card">
                 <h3>Mobile</h3>
-                <span>Topup</span>
+                <span>TOPUP</span>
             </div>
             <div class="card">
                 <h3>Roblox</h3>
-                <span>Topup</span>
+                <span>TOPUP</span>
             </div>
         </div>
     </div>
 
     <!-- ផ្នែក Footer ខាងក្រោមสุด -->
     <div class="footer">
-        LY.seavlong 24/7 &nbsp;&nbsp;&nbsp; © copyright 2026 &nbsp;&nbsp;&nbsp; Fasting safe 10+1
+        LY.seavlong 24/7 &nbsp;&nbsp; © copyright 2026 &nbsp;&nbsp; Fasting safe 10+1
     </div>
-
-    <script>
-        // កូដ JavaScript បន្ថែម (បើត្រូវការបញ្ជាសកម្មភាពផ្សេងៗពេលចុចលើ Card)
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('click', () => {
-                const gameName = card.querySelector('h3').innerText;
-                alert('អ្នកបានជ្រើសរើស: ' + gameName);
-            });
-        });
-    </script>
 
 </body>
 </html>
