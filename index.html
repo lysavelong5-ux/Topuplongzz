@@ -123,7 +123,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* ផ្នែកបញ្ជីតម្លៃ Roblox (លាក់ទុកជាមុន) */
+        /* ផ្នែកបញ្ជីតម្លៃ Roblox */
         #roblox-section {
             display: none;
             animation: fadeIn 0.3s ease-in-out;
@@ -153,23 +153,17 @@
         .roblox-item {
             background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
             border-radius: 12px;
-            padding: 12px 18px;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5),
                         inset 0 1px 1px rgba(255, 255, 255, 0.1);
             border: 1px solid #333333;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-        }
-
-        .roblox-item:active {
-            transform: scale(0.98);
         }
 
         .robux-amount {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #ffffff;
             display: flex;
@@ -179,17 +173,38 @@
 
         .robux-icon {
             color: #ff3b30;
-            font-size: 16px;
+            font-size: 15px;
+        }
+
+        .right-side {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .robux-price {
-            background-color: #1da1f2;
-            color: #ffffff;
-            padding: 5px 12px;
-            border-radius: 20px;
             font-size: 13px;
             font-weight: 700;
-            box-shadow: 0 2px 5px rgba(29, 161, 242, 0.4);
+            color: #ffffff;
+        }
+
+        /* ប៊ូតុងទិញបែប 3D */
+        .buy-btn {
+            background: linear-gradient(145deg, #23b0ff, #0082d6);
+            color: #ffffff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(29, 161, 242, 0.4),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .buy-btn:active {
+            transform: scale(0.95);
         }
 
         .footer {
@@ -234,33 +249,51 @@
             </div>
         </div>
 
-        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (លោតចេញមកពេលចុច Roblox) -->
+        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox -->
         <div id="roblox-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
             <div class="roblox-list">
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
-                    <div class="robux-price">$1.00</div>
+                    <div class="right-side">
+                        <div class="robux-price">$1.00</div>
+                        <button class="buy-btn" onclick="buyRobux('80 Robux', '$1.00')">ទិញ</button>
+                    </div>
                 </div>
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
-                    <div class="robux-price">$2.00</div>
+                    <div class="right-side">
+                        <div class="robux-price">$2.00</div>
+                        <button class="buy-btn" onclick="buyRobux('160 Robux', '$2.00')">ទិញ</button>
+                    </div>
                 </div>
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
-                    <div class="robux-price">$3.00</div>
+                    <div class="right-side">
+                        <div class="robux-price">$3.00</div>
+                        <button class="buy-btn" onclick="buyRobux('240 Robux', '$3.00')">ទិញ</button>
+                    </div>
                 </div>
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
-                    <div class="robux-price">$5.00</div>
+                    <div class="right-side">
+                        <div class="robux-price">$5.00</div>
+                        <button class="buy-btn" onclick="buyRobux('400 Robux', '$5.00')">ទិញ</button>
+                    </div>
                 </div>
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
-                    <div class="robux-price">$10.00</div>
+                    <div class="right-side">
+                        <div class="robux-price">$10.00</div>
+                        <button class="buy-btn" onclick="buyRobux('800 Robux', '$10.00')">ទិញ</button>
+                    </div>
                 </div>
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
-                    <div class="robux-price">$12.50</div>
+                    <div class="right-side">
+                        <div class="robux-price">$12.50</div>
+                        <button class="buy-btn" onclick="buyRobux('1000 Robux', '$12.50')">ទិញ</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -273,18 +306,19 @@
 
     <script>
         function selectGame(element, gameName) {
-            // ដកសញ្ញា active ចេញពីគ្រប់ Card ទាំងអស់
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-            // ដាក់សញ្ញា active លើ Card ដែលបានចុច
             element.classList.add('active');
 
-            // ឆែកមើលថាតើចុចលើ Roblox ឬអត់
             const robloxSection = document.getElementById('roblox-section');
             if (gameName === 'Roblox') {
                 robloxSection.style.display = 'block';
             } else {
                 robloxSection.style.display = 'none';
             }
+        }
+
+        function buyRobux(amount, price) {
+            alert('អ្នកបានជ្រើសរើសទិញ: ' + amount + ' តម្លៃ ' + price);
         }
     </script>
 
