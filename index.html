@@ -82,7 +82,7 @@
             line-height: 1.4;
         }
 
-        /* ផ្នែកបង្ហាញកាតហ្គេមដើម */
+        /* ផ្នែកបង្ហាញកាតហ្គេម */
         .cards-wrapper {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -103,7 +103,7 @@
             transition: all 0.2s ease;
         }
 
-        .card:hover, .card.active {
+        .card:active, .card.active {
             transform: translateY(-2px);
             background: linear-gradient(145deg, #ffffff, #d0d4dd);
             border: 1px solid #1da1f2;
@@ -123,7 +123,17 @@
             letter-spacing: 0.5px;
         }
 
-        /* ផ្នែកបញ្ជីតម្លៃ Roblox */
+        /* ផ្នែកបញ្ជីតម្លៃ Roblox (លាក់ទុកជាមុន) */
+        #roblox-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .section-title {
             font-size: 15px;
             font-weight: 700;
@@ -210,46 +220,48 @@
 
         <!-- ផ្នែក Cards បែប 3D -->
         <div class="cards-wrapper">
-            <div class="card">
+            <div class="card" onclick="selectGame(this, 'Free Fire')">
                 <h3>Free Fire</h3>
                 <span>TOPUP</span>
             </div>
-            <div class="card">
+            <div class="card" onclick="selectGame(this, 'Mobile')">
                 <h3>Mobile</h3>
                 <span>TOPUP</span>
             </div>
-            <div class="card active">
+            <div class="card" onclick="selectGame(this, 'Roblox')">
                 <h3>Roblox</h3>
                 <span>TOPUP</span>
             </div>
         </div>
 
-        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (80 ถึง 1000 Robux) -->
-        <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
-        <div class="roblox-list">
-            <div class="roblox-item">
-                <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
-                <div class="robux-price">$1.00</div>
-            </div>
-            <div class="roblox-item">
-                <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
-                <div class="robux-price">$2.00</div>
-            </div>
-            <div class="roblox-item">
-                <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
-                <div class="robux-price">$3.00</div>
-            </div>
-            <div class="roblox-item">
-                <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
-                <div class="robux-price">$5.00</div>
-            </div>
-            <div class="roblox-item">
-                <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
-                <div class="robux-price">$10.00</div>
-            </div>
-            <div class="roblox-item">
-                <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
-                <div class="robux-price">$12.50</div>
+        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (លោតចេញមកពេលចុច Roblox) -->
+        <div id="roblox-section">
+            <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
+            <div class="roblox-list">
+                <div class="roblox-item">
+                    <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
+                    <div class="robux-price">$1.00</div>
+                </div>
+                <div class="roblox-item">
+                    <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
+                    <div class="robux-price">$2.00</div>
+                </div>
+                <div class="roblox-item">
+                    <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
+                    <div class="robux-price">$3.00</div>
+                </div>
+                <div class="roblox-item">
+                    <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
+                    <div class="robux-price">$5.00</div>
+                </div>
+                <div class="roblox-item">
+                    <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
+                    <div class="robux-price">$10.00</div>
+                </div>
+                <div class="roblox-item">
+                    <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
+                    <div class="robux-price">$12.50</div>
+                </div>
             </div>
         </div>
     </div>
@@ -258,6 +270,23 @@
     <div class="footer">
         LY.seavlong 24/7 &nbsp;&nbsp; © copyright 2026 &nbsp;&nbsp; Fasting safe 10+1
     </div>
+
+    <script>
+        function selectGame(element, gameName) {
+            // ដកសញ្ញា active ចេញពីគ្រប់ Card ទាំងអស់
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            // ដាក់សញ្ញា active លើ Card ដែលបានចុច
+            element.classList.add('active');
+
+            // ឆែកមើលថាតើចុចលើ Roblox ឬអត់
+            const robloxSection = document.getElementById('roblox-section');
+            if (gameName === 'Roblox') {
+                robloxSection.style.display = 'block';
+            } else {
+                robloxSection.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
