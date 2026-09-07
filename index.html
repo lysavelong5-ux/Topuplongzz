@@ -30,7 +30,7 @@
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             gap: 15px;
         }
 
@@ -44,7 +44,6 @@
             height: 75px;
             border-radius: 50%;
             object-fit: cover;
-            /* 3D effect for logo */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 
                         inset 0 2px 3px rgba(255, 255, 255, 0.2);
             border: 2px solid #2a2a2a;
@@ -83,44 +82,104 @@
             line-height: 1.4;
         }
 
+        /* ផ្នែកបង្ហាញកាតហ្គេមដើម */
         .cards-wrapper {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
+            margin-bottom: 25px;
         }
 
         .card {
-            /* 3D Card Effect */
             background: linear-gradient(145deg, #e6e9ef, #bec2cb);
             color: #111111;
-            padding: 20px 8px;
-            border-radius: 16px;
+            padding: 15px 8px;
+            border-radius: 14px;
             text-align: center;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 
                         inset 0 2px 4px rgba(255, 255, 255, 0.8), 
                         inset 0 -3px 4px rgba(0, 0, 0, 0.2);
             transition: all 0.2s ease;
         }
 
-        .card:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 
-                        inset 0 2px 3px rgba(0, 0, 0, 0.2);
+        .card:hover, .card.active {
+            transform: translateY(-2px);
+            background: linear-gradient(145deg, #ffffff, #d0d4dd);
+            border: 1px solid #1da1f2;
         }
 
         .card h3 {
-            margin: 0 0 8px 0;
-            font-size: 14px;
+            margin: 0 0 6px 0;
+            font-size: 13px;
             font-weight: 800;
             color: #111111;
         }
 
         .card span {
-            font-size: 10px;
+            font-size: 9px;
             color: #555555;
             font-weight: 700;
             letter-spacing: 0.5px;
+        }
+
+        /* ផ្នែកបញ្ជីតម្លៃ Roblox */
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1da1f2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .roblox-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .roblox-item {
+            background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
+            border-radius: 12px;
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid #333333;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .roblox-item:active {
+            transform: scale(0.98);
+        }
+
+        .robux-amount {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .robux-icon {
+            color: #ff3b30;
+            font-size: 16px;
+        }
+
+        .robux-price {
+            background-color: #1da1f2;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(29, 161, 242, 0.4);
         }
 
         .footer {
@@ -131,6 +190,7 @@
             color: #777777;
             background-color: #141414;
             letter-spacing: 0.3px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -158,14 +218,43 @@
                 <h3>Mobile</h3>
                 <span>TOPUP</span>
             </div>
-            <div class="card">
+            <div class="card active">
                 <h3>Roblox</h3>
                 <span>TOPUP</span>
             </div>
         </div>
+
+        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (80 ถึง 1000 Robux) -->
+        <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
+        <div class="roblox-list">
+            <div class="roblox-item">
+                <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
+                <div class="robux-price">$1.00</div>
+            </div>
+            <div class="roblox-item">
+                <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
+                <div class="robux-price">$2.00</div>
+            </div>
+            <div class="roblox-item">
+                <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
+                <div class="robux-price">$3.00</div>
+            </div>
+            <div class="roblox-item">
+                <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
+                <div class="robux-price">$5.00</div>
+            </div>
+            <div class="roblox-item">
+                <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
+                <div class="robux-price">$10.00</div>
+            </div>
+            <div class="roblox-item">
+                <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
+                <div class="robux-price">$12.50</div>
+            </div>
+        </div>
     </div>
 
-    <!-- ផ្នែក Footer ខាងក្រោមสุด -->
+    <!-- ផ្នែក Footer ខាងក្រោមສຸດ -->
     <div class="footer">
         LY.seavlong 24/7 &nbsp;&nbsp; © copyright 2026 &nbsp;&nbsp; Fasting safe 10+1
     </div>
