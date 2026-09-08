@@ -334,17 +334,35 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
         .close-btn {
             background-color: #ff3b30;
             color: white;
             border: none;
-            padding: 8px 30px;
+            padding: 8px 20px;
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
             font-size: 13px;
-            margin-top: 5px;
             box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
+        }
+
+        .paid-btn {
+            background: linear-gradient(145deg, #34c759, #28a745);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
         }
 
         .footer {
@@ -460,7 +478,10 @@
             <h3>ស្កេនទូទាត់ប្រាក់</h3>
             <img src="https://img.sanishtech.com/u/36e6f97a5af37766e3c610920923b3e9.jpeg" alt="QR Code" class="qr-image">
             <p id="modalText" style="font-size: 13px; color: #cccccc; margin-bottom: 15px; line-height: 1.5;"></p>
-            <button class="close-btn" onclick="closeModal()">បិទ</button>
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeModal()">បិទ</button>
+                <button class="paid-btn" onclick="confirmPayment()">បានទូទាត់រួច</button>
+            </div>
         </div>
     </div>
 
@@ -470,6 +491,10 @@
     </div>
 
     <script>
+        const BOT_TOKEN = "8978610299:AAEDQs8p1D0xIWI5vhYUaVnNcdh90oBhzfc";
+        const GROUP_ID = "-1004350334105";
+        let selectedOrder = "";
+
         function closeWelcomeModal() {
             document.getElementById('welcomeModal').style.display = 'none';
         }
@@ -483,16 +508,48 @@
                 robloxSection.style.display = 'block';
             } else {
                 robloxSection.style.display = 'none';
-                alert('សេវាកម្ម ' + gameName + ' មិនទាន់មានស្តុកទេ សូមអភ័យទos!');
+                alert('សេវាកម្ម ' + gameName + ' មិនទាន់មានស្តុកទេ សូមអភ័យទោស!');
             }
         }
 
         function buyRobux(amount, price) {
+            selectedOrder = `Roblox - ${amount} (${price})`;
             const modal = document.getElementById('qrModal');
             const modalText = document.getElementById('modalText');
             
-            modalText.innerHTML = `អ្នកបានកុម្ម៉ង់ទិញ <b>${amount} (${price})</b><br>ការបញ្ជាទិញជោគជ័យ!<br>សូមរង់ចាំ Admin Approve ក្រោយពេលទូទាត់។`;
+            modalText.innerHTML = `អ្នកបានកុម្ម៉ង់ទិញ <b>${selectedOrder}</b><br>ការបញ្ជាទិញជោគជ័យ!<br>សូមស្កេនទូទាត់ និងចុចប៊ូតុងខាងក្រោម។`;
             modal.style.display = 'flex';
+        }
+
+        function confirmPayment() {
+            const message = `🚨 មានការបញ្ជាទិញថ្មី!\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: អតិថិជនបានចុចបញ្ជាក់ការទូទាត់\n⏳ សូមរង់ចាំ Admin Approve ផ្ទៀងផ្ទាត់វិក្កយបត្រ។`;
+            
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: GROUP_ID,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
+                    alert('បានបញ្ជូនព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
+                } else {
+                    alert('មានបញ្ហាអសកម្មក្នុងការបញ្ជូនសារ៖ ' + data.description);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Connection Error!');
+            });
+
+            closeModal();
         }
 
         function closeModal() {
