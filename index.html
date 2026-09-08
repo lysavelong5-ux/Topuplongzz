@@ -307,7 +307,7 @@
         /* QR Code Modal Styles */
         .qr-modal-content {
             background-color: #242424;
-            padding: 25px 20px;
+            padding: 20px 15px;
             border-radius: 20px;
             text-align: center;
             max-width: 380px;
@@ -319,37 +319,62 @@
         .qr-modal-content h3 {
             margin-top: 0;
             color: #1da1f2;
-            font-size: 17px;
-            margin-bottom: 15px;
+            font-size: 16px;
+            margin-bottom: 10px;
         }
 
         .qr-image {
-            width: 260px;
-            height: 260px;
+            width: 220px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 12px;
-            margin: 0 auto 15px auto;
+            border-radius: 10px;
+            margin: 0 auto 10px auto;
             display: block;
-            border: 3px solid #444;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border: 2px solid #444;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Upload Receipt Styles */
+        .upload-container {
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .upload-container label {
+            font-size: 12px;
+            color: #1da1f2;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .file-input {
+            width: 100%;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: 1px dashed #555;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
         }
 
         .modal-buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .close-btn {
             background-color: #ff3b30;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
         }
 
@@ -357,11 +382,11 @@
             background: linear-gradient(145deg, #34c759, #28a745);
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
         }
 
@@ -472,12 +497,19 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង QR Code Modal -->
+    <!-- ផ្ទាំង QR Code Modal ជាមួយ Upload វិក្កយបត្រ -->
     <div id="qrModal" class="modal" style="display: none;">
         <div class="qr-modal-content">
             <h3>ស្កេនទូទាត់ប្រាក់</h3>
             <img src="https://img.sanishtech.com/u/36e6f97a5af37766e3c610920923b3e9.jpeg" alt="QR Code" class="qr-image">
-            <p id="modalText" style="font-size: 13px; color: #cccccc; margin-bottom: 15px; line-height: 1.5;"></p>
+            <p id="modalText" style="font-size: 11px; color: #cccccc; margin-bottom: 8px; line-height: 1.3;"></p>
+            
+            <!-- ផ្នែកដាក់ Upload រូបវិក្កយបត្រ -->
+            <div class="upload-container">
+                <label for="receiptFile">📎 Upload វិក្កយបត្រទូទាត់:</label>
+                <input type="file" id="receiptFile" accept="image/*" class="file-input">
+            </div>
+
             <div class="modal-buttons">
                 <button class="close-btn" onclick="closeModal()">បិទ</button>
                 <button class="paid-btn" onclick="confirmPayment()">បានទូទាត់រួច</button>
@@ -517,37 +549,56 @@
             const modal = document.getElementById('qrModal');
             const modalText = document.getElementById('modalText');
             
-            modalText.innerHTML = `អ្នកបានកុម្ម៉ង់ទិញ <b>${selectedOrder}</b><br>ការបញ្ជាទិញជោគជ័យ!<br>សូមស្កេនទូទាត់ និងចុចប៊ូតុងខាងក្រោម។`;
+            modalText.innerHTML = `អ្នកបានកុម្ម៉ង់ទិញ <b>${selectedOrder}</b><br>សូមស្កេនទូទាត់ និង Upload រូបវិក្កយបត្រខាងក្រោម!`;
             modal.style.display = 'flex';
         }
 
         function confirmPayment() {
-            const message = `🚨 មានការបញ្ជាទិញថ្មី!\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: អតិថិជនបានចុចបញ្ជាក់ការទូទាត់\n⏳ សូមរង់ចាំ Admin Approve ផ្ទៀងផ្ទាត់វិក្កយបត្រ។`;
-            
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: GROUP_ID,
-                    text: message
+            const fileInput = document.getElementById('receiptFile');
+            const caption = `🚨 មានការបញ្ជាទិញថ្មី!\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: អតិថិជនបាន Upload វិក្កយបត្រទូទាត់\n⏳ សូម Admin Approve ផ្ទៀងផ្ទាត់។`;
+
+            if (fileInput.files.length > 0) {
+                // ប្រសិនបើមានដាក់រូបវិក្កយបត្រ ផ្ញើជារូបភាពចូល Telegram Group
+                const formData = new FormData();
+                formData.append('chat_id', GROUP_ID);
+                formData.append('caption', caption);
+                formData.append('photo', fileInput.files[0]);
+
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.ok) {
-                    alert('បានបញ្ជូនព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
-                } else {
-                    alert('មានបញ្ហាអសកម្មក្នុងការបញ្ជូនសារ៖ ' + data.description);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Connection Error!');
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('បានបញ្ជូនវិក្កយបត្រ និងព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
+                        fileInput.value = ""; // Clear file
+                    } else {
+                        alert('មានបញ្ហាក្នុងការបញ្ជូនរូបភាព៖ ' + data.description);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Connection Error!');
+                });
+            } else {
+                // ប្រសិនបើអត់ទាន់ជ្រើសរើសរូប ផ្ញើតែអត្ថបទ
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: GROUP_ID, text: caption })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('បានបញ្ជូនព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
+                    } else {
+                        alert('មានបញ្ហា៖ ' + data.description);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
 
             closeModal();
         }
