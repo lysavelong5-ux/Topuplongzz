@@ -85,15 +85,20 @@
             line-height: 1.4;
         }
 
-        /* រូបកណ្ដឹងនៅជ្រុងខាងស្តាំ */
-        .bell-container {
+        /* រូបកណ្ដឹង និង រូបគណនី (Profile Icon) នៅជ្រុងខាងស្តាំ */
+        .top-icons {
             position: absolute;
             right: 5px;
             top: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
             background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
             border: 1px solid #333;
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -101,14 +106,15 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             transition: transform 0.1s ease;
+            position: relative;
         }
 
-        .bell-container:active {
+        .icon-btn:active {
             transform: scale(0.92);
         }
 
-        .bell-icon {
-            font-size: 18px;
+        .icon-symbol {
+            font-size: 16px;
         }
 
         .notification-badge {
@@ -153,7 +159,7 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Admin Panel Button (លេចឡើងเฉพาะ Admin) */
+        /* Admin Panel Button */
         .admin-panel-btn {
             background: linear-gradient(145deg, #ff9500, #e08200);
             color: white;
@@ -386,6 +392,25 @@
             transform: scale(0.97);
         }
 
+        .logout-btn {
+            background: linear-gradient(145deg, #ff3b30, #d32f2f);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .logout-btn:active {
+            transform: scale(0.97);
+        }
+
         /* QR Code Modal Styles */
         .qr-modal-content {
             background-color: #242424;
@@ -448,7 +473,7 @@
         }
 
         .close-btn {
-            background-color: #ff3b30;
+            background-color: #777;
             color: white;
             border: none;
             padding: 8px 18px;
@@ -456,7 +481,6 @@
             font-weight: bold;
             cursor: pointer;
             font-size: 12px;
-            box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
         }
 
         .paid-btn {
@@ -528,6 +552,17 @@
         </div>
     </div>
 
+    <!-- ផ្ទាំង Profile Modal (សម្រាប់មើលគណនី និង Logout) -->
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
+            <h3>ព័ត៌មានគណនី</h3>
+            <p>Username របស់អ្នក:<br><b id="profileUsername" style="color: #1da1f2; font-size: 16px;"></b></p>
+            <button class="enter-shop-btn" onclick="closeProfileModal()">បិទ</button>
+            <button class="logout-btn" onclick="logoutUser()">ចាកចេញ (Logout)</button>
+        </div>
+    </div>
+
     <!-- ផ្ទាំង Notification Modal (សម្រាប់មើលសារ) -->
     <div id="notifModal" class="modal" style="display: none;">
         <div class="notif-modal-content">
@@ -541,7 +576,7 @@
     </div>
 
     <div class="container">
-        <!-- ផ្នែក Profile និង កណ្ដឹង -->
+        <!-- ផ្នែក Profile និង កណ្ដឹង + រូបគណនី -->
         <div class="header">
             <div class="logo-container">
                 <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="logo">
@@ -550,14 +585,20 @@
                 <h1>Longzztopup Angkor <span class="verified-badge">✓</span></h1>
                 <p>Topup game store Free Fire Mobile Roblox PUBG</p>
             </div>
-            <!-- រូបកណ្ដឹង -->
-            <div class="bell-container" onclick="openNotifModal()">
-                <span class="bell-icon">🔔</span>
-                <span class="notification-badge">1</span>
+            
+            <!-- ប៊ូតុងរូបកណ្ដឹង និង ប៊ូតុងគណនីនៅខាងស្តាំ -->
+            <div class="top-icons">
+                <div class="icon-btn" onclick="openProfileModal()" title="គណនីរបស់ฉัน">
+                    <span class="icon-symbol">👤</span>
+                </div>
+                <div class="icon-btn" onclick="openNotifModal()" title="សេចក្តីជូនដំណឹង">
+                    <span class="icon-symbol">🔔</span>
+                    <span class="notification-badge">1</span>
+                </div>
             </div>
         </div>
 
-        <!-- ផ្នែកប៊ូតុង Admin Panel (បង្ហាញเฉพาะពេល Admin ចូល) -->
+        <!-- ផ្នែកប៊ូតុង Admin Panel -->
         <button id="adminBtn" class="admin-panel-btn" onclick="openAdminPanel()">⚙️ ផ្ទាំងគ្រប់គ្រង Admin (ផ្ញើសារ)</button>
 
         <!-- ផ្នែកអក្សររត់វិលជុំ -->
@@ -585,7 +626,6 @@
         <div id="roblox-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
             <div class="roblox-list">
-                <!-- 80 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
                     <div class="right-side">
@@ -593,7 +633,6 @@
                         <a href="https://t.me/Benzzxz" target="_blank" class="buy-btn">ទិញ</a>
                     </div>
                 </div>
-                <!-- 160 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
                     <div class="right-side">
@@ -601,7 +640,6 @@
                         <a href="https://t.me/Benzzxz" target="_blank" class="buy-btn">ទិញ</a>
                     </div>
                 </div>
-                <!-- 240 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
                     <div class="right-side">
@@ -609,7 +647,6 @@
                         <button class="buy-btn" onclick="buyRobux('240 Robux', '$3.00')">ទិញ</button>
                     </div>
                 </div>
-                <!-- 400 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
                     <div class="right-side">
@@ -617,7 +654,6 @@
                         <button class="buy-btn" onclick="buyRobux('400 Robux', '$5.00')">ទិញ</button>
                     </div>
                 </div>
-                <!-- 800 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
                     <div class="right-side">
@@ -625,7 +661,6 @@
                         <button class="buy-btn" onclick="buyRobux('800 Robux', '$10.00')">ទិញ</button>
                     </div>
                 </div>
-                <!-- 1000 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
                     <div class="right-side">
@@ -666,7 +701,6 @@
         const GROUP_ID = "-1004350334105";
         let selectedOrder = "";
 
-        // ឆែកមើល Username ពេលបើក Mini App លើកដំបូង
         window.onload = function() {
             const savedUser = localStorage.getItem('longzz_username');
             if (!savedUser) {
@@ -690,14 +724,27 @@
 
         function checkAdminAccess(username) {
             if (username.toLowerCase() === 'longzzspp') {
-                // ប្រសិនបើជា Admin
                 document.getElementById('adminBtn').style.display = 'block';
                 document.getElementById('displayUser').innerText = '(Admin: Longzzspp)';
             } else {
-                // ប្រសិនបើជា User ធម្មតា
                 document.getElementById('adminBtn').style.display = 'none';
                 document.getElementById('displayUser').innerText = '(' + username + ')';
             }
+        }
+
+        function openProfileModal() {
+            const username = localStorage.getItem('longzz_username') || 'Guest';
+            document.getElementById('profileUsername').innerText = username;
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('longzz_username');
+            location.reload(); // Refresh ទំព័រដើម្បីឱ្យវាលោតសួរ Username ឡើងវិញ
         }
 
         function openAdminPanel() {
