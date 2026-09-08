@@ -30,7 +30,7 @@
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             gap: 15px;
         }
 
@@ -80,6 +80,31 @@
             color: #9e9e9e;
             font-size: 11px;
             line-height: 1.4;
+        }
+
+        /* ផ្នែកអក្សររត់វិលជុំ */
+        .marquee-box {
+            background: linear-gradient(145deg, #252525, #1c1c1c);
+            border: 1px solid #333333;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 8px 0;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 12s linear infinite;
+            font-size: 13px;
+            font-weight: bold;
+            color: #1da1f2;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         /* ផ្នែកបង្ហាញកាតហ្គេម */
@@ -279,37 +304,47 @@
             transform: scale(0.97);
         }
 
-        /* QR Code Modal Styles */
+        /* QR Code Modal Styles (ពង្រីក QR ឱ្យកាន់តែធំស្អាត) */
         .qr-modal-content {
             background-color: #242424;
-            padding: 25px;
-            border-radius: 16px;
+            padding: 25px 20px;
+            border-radius: 20px;
             text-align: center;
-            max-width: 320px;
+            max-width: 380px;
             width: 100%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
             border: 1px solid #333;
         }
 
+        .qr-modal-content h3 {
+            margin-top: 0;
+            color: #1da1f2;
+            font-size: 17px;
+            margin-bottom: 15px;
+        }
+
         .qr-image {
-            width: 180px;
-            height: 180px;
+            width: 260px;
+            height: 260px;
             object-fit: cover;
-            border-radius: 10px;
-            margin: 15px 0;
-            border: 2px solid #444;
+            border-radius: 12px;
+            margin: 0 auto 15px auto;
+            display: block;
+            border: 3px solid #444;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .close-btn {
             background-color: #ff3b30;
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 8px 30px;
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
             font-size: 13px;
-            margin-top: 10px;
+            margin-top: 5px;
+            box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
         }
 
         .footer {
@@ -346,6 +381,11 @@
                 <h1>Longzztopup Angkor <span class="verified-badge">✓</span></h1>
                 <p>Topup game store Free Fire Mobile Roblox PUBG</p>
             </div>
+        </div>
+
+        <!-- ផ្នែកអក្សររត់វិលជុំ -->
+        <div class="marquee-box">
+            <div class="marquee-text">✨ សេវាកម្មល្អ លឿនរហ័ស ទំនុកចិត្ត 24/7 ✨ ស្វាគមន៍អតិថិជនទាំងអស់មកកាន់ហាងយើងខ្ញុំ!</div>
         </div>
 
         <!-- ផ្នែក Cards បែប 3D -->
@@ -414,7 +454,7 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង QR Code Modal (លាក់ទុកមុនពេលចុចទិញ) -->
+    <!-- ផ្ទាំង QR Code Modal (ទំហំធំច្បាស់) -->
     <div id="qrModal" class="modal" style="display: none;">
         <div class="qr-modal-content">
             <h3>ស្កេនទូទាត់ប្រាក់</h3>
