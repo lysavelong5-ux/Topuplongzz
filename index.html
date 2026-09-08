@@ -180,7 +180,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .card {
@@ -214,6 +214,24 @@
             color: #555555;
             font-weight: 700;
             letter-spacing: 0.5px;
+        }
+
+        /* ផ្នែក Banner ថ្មី */
+        .banner-container {
+            width: 100%;
+            margin-bottom: 25px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            border: 2px solid #333;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            max-height: 180px;
+            object-fit: cover;
+            display: block;
         }
 
         /* ផ្នែកបញ្ជីតម្លៃ Roblox */
@@ -618,7 +636,7 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង Admin Panel Modal (បង្ហាញรายชื่อ User និងផ្ញើសារ) -->
+    <!-- ផ្ទាំង Admin Panel Modal -->
     <div id="adminModal" class="modal" style="display: none;">
         <div class="admin-modal-content">
             <h3>⚙️ ផ្ទាំងគ្រប់គ្រង Admin</h3>
@@ -660,7 +678,7 @@
             </div>
             
             <div class="top-icons">
-                <div class="icon-btn" onclick="openProfileModal()" title="គណនីរបស់ฉัน">
+                <div class="icon-btn" onclick="openProfileModal()" title="គណនីរបស់ខ្ញុំ">
                     <span class="icon-symbol">👤</span>
                 </div>
                 <div class="icon-btn" onclick="openNotifModal()" title="សេចក្តីជូនដំណឹង">
@@ -692,6 +710,11 @@
                 <h3>Roblox</h3>
                 <span>TOPUP</span>
             </div>
+        </div>
+
+        <!-- ផ្នែក Banner -->
+        <div class="banner-container">
+            <img src="https://kommodo.ai/i/0ojCBODXJRyl9d2zSAMG" alt="Banner" class="banner-img">
         </div>
 
         <!-- ផ្នែកបញ្ជីតម្លៃ Roblox -->
@@ -791,7 +814,6 @@
             
             localStorage.setItem('longzz_username', inputVal);
             
-            // រក្សាទុកបញ្ជី User ទាំងអស់ចូលក្នុង LocalStorage (មិនឱ្យជាន់គ្នា)
             let allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
             if (!allUsers.includes(inputVal)) {
                 allUsers.push(inputVal);
@@ -844,7 +866,6 @@
         }
 
         function openAdminPanel() {
-            // បង្ហាញបញ្ជីឈ្មោះ User ទាំងអស់
             const allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
             const listContainer = document.getElementById('allUsersList');
             if (allUsers.length > 0) {
@@ -853,7 +874,6 @@
                 listContainer.innerHTML = "មិនទាន់មាន User ចុះឈ្មោះទេ។";
             }
 
-            // បង្ហាញសារចាស់ក្នុង Textarea
             const currentMsg = localStorage.getItem('admin_custom_notif') || '';
             document.getElementById('adminMsgInput').value = currentMsg;
 
