@@ -188,7 +188,6 @@
             color: #ffffff;
         }
 
-        /* ប៊ូតុងទិញបែប 3D */
         .buy-btn {
             background: linear-gradient(145deg, #23b0ff, #0082d6);
             color: #ffffff;
@@ -207,6 +206,112 @@
             transform: scale(0.95);
         }
 
+        /* Modal / Pop-up Styling */
+        .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #242424;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            animation: zoomIn 0.3s ease-in-out;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid #1da1f2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content h3 {
+            margin: 0 0 10px 0;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .modal-content p {
+            font-size: 13px;
+            color: #b0b0b0;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .enter-shop-btn {
+            background: linear-gradient(145deg, #23b0ff, #0082d6);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .enter-shop-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* QR Code Modal Styles */
+        .qr-modal-content {
+            background-color: #242424;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border: 1px solid #333;
+        }
+
+        .qr-image {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #444;
+        }
+
+        .close-btn {
+            background-color: #ff3b30;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
         .footer {
             width: 100%;
             text-align: center;
@@ -220,6 +325,16 @@
     </style>
 </head>
 <body>
+
+    <!-- ផ្ទាំង Welcome Modal លោតពេលបើក Mini App -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
+            <h3>Longzztopup Angkor</h3>
+            <p>សូមស្វាគមន៍មកកាន់ហាងទូទាត់ប្រាក់ហ្គេមរបស់យើងខ្ញុំ! សេវាកម្មរហ័ស ទំនុកចិត្ត 24/7។</p>
+            <button class="enter-shop-btn" onclick="closeWelcomeModal()">ចូលក្នុងហាងទំនិញ</button>
+        </div>
+    </div>
 
     <div class="container">
         <!-- ផ្នែក Profile -->
@@ -235,15 +350,15 @@
 
         <!-- ផ្នែក Cards បែប 3D -->
         <div class="cards-wrapper">
-            <div class="card" onclick="selectGame(this, 'Free Fire')">
+            <div class="card" onclick="selectCode(this, 'Free Fire')">
                 <h3>Free Fire</h3>
                 <span>TOPUP</span>
             </div>
-            <div class="card" onclick="selectGame(this, 'Mobile')">
+            <div class="card" onclick="selectCode(this, 'Mobile')">
                 <h3>Mobile</h3>
                 <span>TOPUP</span>
             </div>
-            <div class="card" onclick="selectGame(this, 'Roblox')">
+            <div class="card" onclick="selectCode(this, 'Roblox')">
                 <h3>Roblox</h3>
                 <span>TOPUP</span>
             </div>
@@ -299,13 +414,27 @@
         </div>
     </div>
 
+    <!-- ផ្ទាំង QR Code Modal (លាក់ទុកមុនពេលចុចទិញ) -->
+    <div id="qrModal" class="modal" style="display: none;">
+        <div class="qr-modal-content">
+            <h3>ស្កេនទូទាត់ប្រាក់</h3>
+            <img src="https://i.ibb.co/1fsh0hzK/qr.jpg" alt="QR Code" class="qr-image">
+            <p id="modalText" style="font-size: 13px; color: #cccccc; margin-bottom: 15px; line-height: 1.5;"></p>
+            <button class="close-btn" onclick="closeModal()">បិទ</button>
+        </div>
+    </div>
+
     <!-- ផ្នែក Footer ខាងក្រោមສຸດ -->
     <div class="footer">
         LY.seavlong 24/7 &nbsp;&nbsp; © copyright 2026 &nbsp;&nbsp; Fasting safe 10+1
     </div>
 
     <script>
-        function selectGame(element, gameName) {
+        function closeWelcomeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
+
+        function selectCode(element, gameName) {
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
 
@@ -318,7 +447,15 @@
         }
 
         function buyRobux(amount, price) {
-            alert('អ្នកបានជ្រើសរើសទិញ: ' + amount + ' តម្លៃ ' + price);
+            const modal = document.getElementById('qrModal');
+            const modalText = document.getElementById('modalText');
+            
+            modalText.innerHTML = `អ្នកបានកុម្ម៉ង់ទិញ <b>${amount} (${price})</b><br>ការបញ្ជាទិញជោគជ័យ!<br>សូមរង់ចាំ Admin Approve ក្រោយពេលទូទាត់។`;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('qrModal').style.display = 'none';
         }
     </script>
 
