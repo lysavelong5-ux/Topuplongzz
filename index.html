@@ -304,7 +304,7 @@
             transform: scale(0.97);
         }
 
-        /* QR Code Modal Styles (ពង្រីក QR ឱ្យកាន់តែធំស្អាត) */
+        /* QR Code Modal Styles */
         .qr-modal-content {
             background-color: #242424;
             padding: 25px 20px;
@@ -454,11 +454,11 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង QR Code Modal (ទំហំធំច្បាស់) -->
+    <!-- ផ្ទាំង QR Code Modal -->
     <div id="qrModal" class="modal" style="display: none;">
         <div class="qr-modal-content">
             <h3>ស្កេនទូទាត់ប្រាក់</h3>
-            <img src="https://i.ibb.co/1fsh0hzK/qr.jpg" alt="QR Code" class="qr-image">
+            <img src="https://img.sanishtech.com/u/36e6f97a5af37766e3c610920923b3e9.jpeg" alt="QR Code" class="qr-image">
             <p id="modalText" style="font-size: 13px; color: #cccccc; margin-bottom: 15px; line-height: 1.5;"></p>
             <button class="close-btn" onclick="closeModal()">បិទ</button>
         </div>
@@ -483,6 +483,7 @@
                 robloxSection.style.display = 'block';
             } else {
                 robloxSection.style.display = 'none';
+                alert('សេវាកម្ម ' + gameName + ' មិនទាន់មានស្តុកទេ សូមអភ័យទos!');
             }
         }
 
