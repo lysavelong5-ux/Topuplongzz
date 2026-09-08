@@ -153,6 +153,22 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* Admin Panel Button (លេចឡើងเฉพาะ Admin) */
+        .admin-panel-btn {
+            background: linear-gradient(145deg, #ff9500, #e08200);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            width: 100%;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(255, 149, 0, 0.4);
+            display: none;
+        }
+
         /* ផ្នែកបង្ហាញកាតហ្គេម */
         .cards-wrapper {
             display: grid;
@@ -501,7 +517,7 @@
 </head>
 <body>
 
-    <!-- ផ្ទាំង Welcome Modal (សួរ Username និងទប់ស្កាត់ឈ្មោះ Longzzspp) -->
+    <!-- ផ្ទាំង Welcome Modal (សួរ Username) -->
     <div id="welcomeModal" class="modal" style="display: none;">
         <div class="modal-content">
             <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
@@ -512,11 +528,11 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង Notification Modal (សម្រាប់មើលសារពី Admin) -->
+    <!-- ផ្ទាំង Notification Modal (សម្រាប់មើលសារ) -->
     <div id="notifModal" class="modal" style="display: none;">
         <div class="notif-modal-content">
-            <h3>🔔 សារប្រកាសពី Admin</h3>
-            <div class="notif-box">
+            <h3>🔔 សារប្រកាសពីហាង</h3>
+            <div class="notif-box" id="notifText">
                 <b>ស្វាគមន៍!</b> <span id="displayUser"></span><br>
                 រាល់ការបញ្ជាទិញកញ្ចប់ 80 & 160 Robux សូមទាក់ទងមកកាន់ Admin ផ្ទាល់ [@Benzzxz]។ ចំណែកកញ្ចប់ផ្សេងទៀតសូម Upload វិក្កយបត្រឱ្យបានត្រឹមត្រូវ។ សូមអរគុណ!
             </div>
@@ -540,6 +556,9 @@
                 <span class="notification-badge">1</span>
             </div>
         </div>
+
+        <!-- ផ្នែកប៊ូតុង Admin Panel (បង្ហាញเฉพาะពេល Admin ចូល) -->
+        <button id="adminBtn" class="admin-panel-btn" onclick="openAdminPanel()">⚙️ ផ្ទាំងគ្រប់គ្រង Admin (ផ្ញើសារ)</button>
 
         <!-- ផ្នែកអក្សររត់វិលជុំ -->
         <div class="marquee-box">
@@ -566,7 +585,7 @@
         <div id="roblox-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
             <div class="roblox-list">
-                <!-- 80 Robux (តភ្ជាប់ទៅ Telegram @Benzzxz) -->
+                <!-- 80 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
                     <div class="right-side">
@@ -574,7 +593,7 @@
                         <a href="https://t.me/Benzzxz" target="_blank" class="buy-btn">ទិញ</a>
                     </div>
                 </div>
-                <!-- 160 Robux (តភ្ជាប់ទៅ Telegram @Benzzxz) -->
+                <!-- 160 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
                     <div class="right-side">
@@ -582,7 +601,7 @@
                         <a href="https://t.me/Benzzxz" target="_blank" class="buy-btn">ទិញ</a>
                     </div>
                 </div>
-                <!-- 240 Robux (ទូទាត់ QR Code) -->
+                <!-- 240 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
                     <div class="right-side">
@@ -590,7 +609,7 @@
                         <button class="buy-btn" onclick="buyRobux('240 Robux', '$3.00')">ទិញ</button>
                     </div>
                 </div>
-                <!-- 400 Robux (ទូទាត់ QR Code) -->
+                <!-- 400 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
                     <div class="right-side">
@@ -598,7 +617,7 @@
                         <button class="buy-btn" onclick="buyRobux('400 Robux', '$5.00')">ទិញ</button>
                     </div>
                 </div>
-                <!-- 800 Robux (ទូទាត់ QR Code) -->
+                <!-- 800 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
                     <div class="right-side">
@@ -606,7 +625,7 @@
                         <button class="buy-btn" onclick="buyRobux('800 Robux', '$10.00')">ទិញ</button>
                     </div>
                 </div>
-                <!-- 1000 Robux (ទូទាត់ QR Code) -->
+                <!-- 1000 Robux -->
                 <div class="roblox-item">
                     <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
                     <div class="right-side">
@@ -653,7 +672,7 @@
             if (!savedUser) {
                 document.getElementById('welcomeModal').style.display = 'flex';
             } else {
-                document.getElementById('displayUser').innerText = '(' + savedUser + ')';
+                checkAdminAccess(savedUser);
             }
         }
 
@@ -664,18 +683,36 @@
                 return;
             }
             
-            // ទប់ស្កាត់មិនឱ្យ User ប្រើប្រាស់ឈ្មោះ Longzzspp
-            if (inputVal.toLowerCase() === 'longzzspp') {
-                alert('ឈ្មោះនេះ (Longzzspp) គឺសម្រាប់ Admin ប៉ុណ្ណោះ! សូមប្រើឈ្មោះផ្សេង។');
-                return;
-            }
-
             localStorage.setItem('longzz_username', inputVal);
-            document.getElementById('displayUser').innerText = '(' + inputVal + ')';
+            checkAdminAccess(inputVal);
             document.getElementById('welcomeModal').style.display = 'none';
         }
 
+        function checkAdminAccess(username) {
+            if (username.toLowerCase() === 'longzzspp') {
+                // ប្រសិនបើជា Admin
+                document.getElementById('adminBtn').style.display = 'block';
+                document.getElementById('displayUser').innerText = '(Admin: Longzzspp)';
+            } else {
+                // ប្រសិនបើជា User ធម្មតា
+                document.getElementById('adminBtn').style.display = 'none';
+                document.getElementById('displayUser').innerText = '(' + username + ')';
+            }
+        }
+
+        function openAdminPanel() {
+            let newMessage = prompt("បញ្ចូលសារប្រកាសថ្មីសម្រាប់ផ្ញើជូន User ទាំងអស់៖");
+            if (newMessage) {
+                localStorage.setItem('admin_custom_notif', newMessage);
+                alert('បានកត់ត្រាសារប្រកាសថ្មីជោគជ័យ!');
+            }
+        }
+
         function openNotifModal() {
+            const customMsg = localStorage.getItem('admin_custom_notif');
+            if (customMsg) {
+                document.getElementById('notifText').innerHTML = `<b>សារពី Admin (Longzzspp):</b><br>${customMsg}`;
+            }
             document.getElementById('notifModal').style.display = 'flex';
         }
 
