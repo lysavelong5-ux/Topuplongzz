@@ -85,7 +85,7 @@
             line-height: 1.4;
         }
 
-        /* រូបកណ្ដឹង និង រូបគណនី (Profile Icon) នៅជ្រុងខាងស្តាំ */
+        /* រូបកណ្ដឹង និង រូបគណនីនៅជ្រុងខាងស្តាំ */
         .top-icons {
             position: absolute;
             right: 5px;
@@ -411,6 +411,61 @@
             transform: scale(0.97);
         }
 
+        /* Admin Management Modal Styles */
+        .admin-modal-content {
+            background-color: #242424;
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: left;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+        }
+
+        .admin-modal-content h3 {
+            color: #ff9500;
+            margin-top: 0;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .admin-section-label {
+            font-size: 12px;
+            color: #1da1f2;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .admin-textarea {
+            width: 100%;
+            height: 90px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 12px;
+            resize: none;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .user-list-box {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            height: 110px;
+            overflow-y: auto;
+            font-size: 12px;
+            color: #ddd;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
         /* QR Code Modal Styles */
         .qr-modal-content {
             background-color: #242424;
@@ -552,7 +607,7 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង Profile Modal (សម្រាប់មើលគណនី និង Logout) -->
+    <!-- ផ្ទាំង Profile Modal -->
     <div id="profileModal" class="modal" style="display: none;">
         <div class="modal-content">
             <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
@@ -563,7 +618,25 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង Notification Modal (សម្រាប់មើលសារ) -->
+    <!-- ផ្ទាំង Admin Panel Modal (បង្ហាញรายชื่อ User និងផ្ញើសារ) -->
+    <div id="adminModal" class="modal" style="display: none;">
+        <div class="admin-modal-content">
+            <h3>⚙️ ផ្ទាំងគ្រប់គ្រង Admin</h3>
+            
+            <label class="admin-section-label">📋 បញ្ជីឈ្មោះ User ទាំងអស់:</label>
+            <div id="allUsersList" class="user-list-box">មិនទាន់មាន User ចុះឈ្មោះទេ។</div>
+            
+            <label class="admin-section-label">📢 ផ្ញើសារប្រកាសជូន User ទាំងអស់:</label>
+            <textarea id="adminMsgInput" class="admin-textarea" placeholder="សរសេរសារប្រកាសនៅទីនេះ..."></textarea>
+            
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeAdminPanel()">បិទ</button>
+                <button class="paid-btn" onclick="saveAdminMessage()">រក្សាទុកនិងផ្ញើសារ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ផ្ទាំង Notification Modal -->
     <div id="notifModal" class="modal" style="display: none;">
         <div class="notif-modal-content">
             <h3>🔔 សារប្រកាសពីហាង</h3>
@@ -586,7 +659,6 @@
                 <p>Topup game store Free Fire Mobile Roblox PUBG</p>
             </div>
             
-            <!-- ប៊ូតុងរូបកណ្ដឹង និង ប៊ូតុងគណនីនៅខាងស្តាំ -->
             <div class="top-icons">
                 <div class="icon-btn" onclick="openProfileModal()" title="គណនីរបស់ฉัน">
                     <span class="icon-symbol">👤</span>
@@ -599,7 +671,7 @@
         </div>
 
         <!-- ផ្នែកប៊ូតុង Admin Panel -->
-        <button id="adminBtn" class="admin-panel-btn" onclick="openAdminPanel()">⚙️ ផ្ទាំងគ្រប់គ្រង Admin (ផ្ញើសារ)</button>
+        <button id="adminBtn" class="admin-panel-btn" onclick="openAdminPanel()">⚙️ មើលបញ្ជី User & ផ្ញើសារ</button>
 
         <!-- ផ្នែកអក្សររត់វិលជុំ -->
         <div class="marquee-box">
@@ -718,8 +790,32 @@
             }
             
             localStorage.setItem('longzz_username', inputVal);
+            
+            // រក្សាទុកបញ្ជី User ទាំងអស់ចូលក្នុង LocalStorage (មិនឱ្យជាន់គ្នា)
+            let allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
+            if (!allUsers.includes(inputVal)) {
+                allUsers.push(inputVal);
+                localStorage.setItem('longzz_all_users', JSON.stringify(allUsers));
+            }
+
             checkAdminAccess(inputVal);
             document.getElementById('welcomeModal').style.display = 'none';
+
+            if (inputVal.toLowerCase() !== 'longzzspp') {
+                sendNewUserNotification(inputVal);
+            }
+        }
+
+        function sendNewUserNotification(username) {
+            const msg = `✨ មានអតិថិជនថ្មីបង្កើតអាខោនចូល Mini App!\n👤 Username: ${username}\n🚀 ត្រៀមខ្លួនទទួលការបញ្ជាទិញ!`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: GROUP_ID, text: msg })
+            })
+            .catch(error => console.error('Error notifying new user:', error));
         }
 
         function checkAdminAccess(username) {
@@ -744,15 +840,35 @@
 
         function logoutUser() {
             localStorage.removeItem('longzz_username');
-            location.reload(); // Refresh ទំព័រដើម្បីឱ្យវាលោតសួរ Username ឡើងវិញ
+            location.reload();
         }
 
         function openAdminPanel() {
-            let newMessage = prompt("បញ្ចូលសារប្រកាសថ្មីសម្រាប់ផ្ញើជូន User ទាំងអស់៖");
-            if (newMessage) {
-                localStorage.setItem('admin_custom_notif', newMessage);
-                alert('បានកត់ត្រាសារប្រកាសថ្មីជោគជ័យ!');
+            // បង្ហាញបញ្ជីឈ្មោះ User ទាំងអស់
+            const allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
+            const listContainer = document.getElementById('allUsersList');
+            if (allUsers.length > 0) {
+                listContainer.innerHTML = allUsers.map((u, index) => `${index + 1}. ${u}`).join('<br>');
+            } else {
+                listContainer.innerHTML = "មិនទាន់មាន User ចុះឈ្មោះទេ។";
             }
+
+            // បង្ហាញសារចាស់ក្នុង Textarea
+            const currentMsg = localStorage.getItem('admin_custom_notif') || '';
+            document.getElementById('adminMsgInput').value = currentMsg;
+
+            document.getElementById('adminModal').style.display = 'flex';
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function saveAdminMessage() {
+            const msg = document.getElementById('adminMsgInput').value.trim();
+            localStorage.setItem('admin_custom_notif', msg);
+            alert('បានរក្សាទុក និងផ្ញើសារប្រកាសជូន User ជោគជ័យ!');
+            document.getElementById('adminModal').style.display = 'none';
         }
 
         function openNotifModal() {
