@@ -25,6 +25,7 @@
             max-width: 480px;
             margin: 0 auto;
             padding: 20px 15px;
+            position: relative;
         }
 
         .header {
@@ -32,6 +33,7 @@
             align-items: center;
             margin-bottom: 20px;
             gap: 15px;
+            position: relative;
         }
 
         .logo-container {
@@ -52,6 +54,7 @@
         .profile-info {
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
         }
 
         .profile-info h1 {
@@ -80,6 +83,49 @@
             color: #9e9e9e;
             font-size: 11px;
             line-height: 1.4;
+        }
+
+        /* រូបកណ្ដឹងនៅជ្រុងខាងស្តាំ */
+        .bell-container {
+            position: absolute;
+            right: 5px;
+            top: 15px;
+            background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
+            border: 1px solid #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.1s ease;
+        }
+
+        .bell-container:active {
+            transform: scale(0.92);
+        }
+
+        .bell-icon {
+            font-size: 18px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: #ff3b30;
+            color: white;
+            font-size: 9px;
+            font-weight: bold;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(255, 59, 48, 0.5);
         }
 
         /* ផ្នែកអក្សររត់វិលជុំ */
@@ -285,8 +331,25 @@
         .modal-content p {
             font-size: 13px;
             color: #b0b0b0;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             line-height: 1.5;
+        }
+
+        .username-input {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            outline: none;
+        }
+
+        .username-input:focus {
+            border-color: #1da1f2;
         }
 
         .enter-shop-btn {
@@ -392,6 +455,38 @@
             box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
         }
 
+        /* Notification Modal Styles */
+        .notif-modal-content {
+            background-color: #242424;
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: left;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+        }
+
+        .notif-modal-content h3 {
+            color: #1da1f2;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .notif-box {
+            background-color: #1a1a1a;
+            border-left: 3px solid #1da1f2;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #dddddd;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
         .footer {
             width: 100%;
             text-align: center;
@@ -406,18 +501,31 @@
 </head>
 <body>
 
-    <!-- ផ្ទាំង Welcome Modal លោតពេលបើក Mini App -->
-    <div id="welcomeModal" class="modal">
+    <!-- ផ្ទាំង Welcome Modal (សួរ Username និងទប់ស្កាត់ឈ្មោះ Longzzspp) -->
+    <div id="welcomeModal" class="modal" style="display: none;">
         <div class="modal-content">
             <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
             <h3>Longzztopup Angkor</h3>
-            <p>សូមស្វាគមន៍មកកាន់ហាងទូទាត់ប្រាក់ហ្គេមរបស់យើងខ្ញុំ! សេវាកម្មរហ័ស ទំនុកចិត្ត 24/7។</p>
-            <button class="enter-shop-btn" onclick="closeWelcomeModal()">ចូលក្នុងហាងទំនិញ</button>
+            <p>សូមបញ្ចូល Username របស់អ្នកដើម្បីបន្តចូលក្នុងហាងទំនិញ៖</p>
+            <input type="text" id="usernameInput" class="username-input" placeholder="ឧ. Seavlong168">
+            <button class="enter-shop-btn" onclick="saveUsername()">ចូលក្នុងហាងទំនិញ</button>
+        </div>
+    </div>
+
+    <!-- ផ្ទាំង Notification Modal (សម្រាប់មើលសារពី Admin) -->
+    <div id="notifModal" class="modal" style="display: none;">
+        <div class="notif-modal-content">
+            <h3>🔔 សារប្រកាសពី Admin</h3>
+            <div class="notif-box">
+                <b>ស្វាគមន៍!</b> <span id="displayUser"></span><br>
+                រាល់ការបញ្ជាទិញកញ្ចប់ 80 & 160 Robux សូមទាក់ទងមកកាន់ Admin ផ្ទាល់ [@Benzzxz]។ ចំណែកកញ្ចប់ផ្សេងទៀតសូម Upload វិក្កយបត្រឱ្យបានត្រឹមត្រូវ។ សូមអរគុណ!
+            </div>
+            <button class="enter-shop-btn" onclick="closeNotifModal()">យល់ព្រម</button>
         </div>
     </div>
 
     <div class="container">
-        <!-- ផ្នែក Profile -->
+        <!-- ផ្នែក Profile និង កណ្ដឹង -->
         <div class="header">
             <div class="logo-container">
                 <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="logo">
@@ -425,6 +533,11 @@
             <div class="profile-info">
                 <h1>Longzztopup Angkor <span class="verified-badge">✓</span></h1>
                 <p>Topup game store Free Fire Mobile Roblox PUBG</p>
+            </div>
+            <!-- រូបកណ្ដឹង -->
+            <div class="bell-container" onclick="openNotifModal()">
+                <span class="bell-icon">🔔</span>
+                <span class="notification-badge">1</span>
             </div>
         </div>
 
@@ -505,7 +618,7 @@
         </div>
     </div>
 
-    <!-- ផ្ទាំង QR Code Modal សម្រាប់កញ្ចប់ធំៗ -->
+    <!-- ផ្ទាំង QR Code Modal -->
     <div id="qrModal" class="modal" style="display: none;">
         <div class="qr-modal-content">
             <h3>ស្កេនទូទាត់ប្រាក់</h3>
@@ -534,8 +647,40 @@
         const GROUP_ID = "-1004350334105";
         let selectedOrder = "";
 
-        function closeWelcomeModal() {
+        // ឆែកមើល Username ពេលបើក Mini App លើកដំបូង
+        window.onload = function() {
+            const savedUser = localStorage.getItem('longzz_username');
+            if (!savedUser) {
+                document.getElementById('welcomeModal').style.display = 'flex';
+            } else {
+                document.getElementById('displayUser').innerText = '(' + savedUser + ')';
+            }
+        }
+
+        function saveUsername() {
+            const inputVal = document.getElementById('usernameInput').value.trim();
+            if (inputVal === "") {
+                alert('សូមបញ្ចូល Username របស់អ្នកសិន!');
+                return;
+            }
+            
+            // ទប់ស្កាត់មិនឱ្យ User ប្រើប្រាស់ឈ្មោះ Longzzspp
+            if (inputVal.toLowerCase() === 'longzzspp') {
+                alert('ឈ្មោះនេះ (Longzzspp) គឺសម្រាប់ Admin ប៉ុណ្ណោះ! សូមប្រើឈ្មោះផ្សេង។');
+                return;
+            }
+
+            localStorage.setItem('longzz_username', inputVal);
+            document.getElementById('displayUser').innerText = '(' + inputVal + ')';
             document.getElementById('welcomeModal').style.display = 'none';
+        }
+
+        function openNotifModal() {
+            document.getElementById('notifModal').style.display = 'flex';
+        }
+
+        function closeNotifModal() {
+            document.getElementById('notifModal').style.display = 'none';
         }
 
         function selectCode(element, gameName) {
@@ -552,17 +697,19 @@
         }
 
         function buyRobux(amount, price) {
-            selectedOrder = `Roblox - ${amount} (${price})`;
+            const username = localStorage.getItem('longzz_username') || 'Unknown';
+            selectedOrder = `Roblox - ${amount} (${price}) [User: ${username}]`;
             const modal = document.getElementById('qrModal');
             const modalText = document.getElementById('modalText');
             
-            modalText.innerHTML = `អ្នកបានកុម្ម៉ង់ទិញ <b>${selectedOrder}</b><br>សូមស្កេនទូទាត់ និង Upload រូបវិក្កយបត្រខាងក្រោម!`;
+            modalText.innerHTML = `អតិថិជន: <b>${username}</b><br>ទំនិញ: <b>${amount} (${price})</b><br>សូមស្កេនទូទាត់ និង Upload រូបវិក្កយបត្រ!`;
             modal.style.display = 'flex';
         }
 
         function confirmPayment() {
+            const username = localStorage.getItem('longzz_username') || 'Unknown';
             const fileInput = document.getElementById('receiptFile');
-            const caption = `🚨 មានការបញ្ជាទិញថ្មី!\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: អតិថិជនបាន Upload វិក្កយបត្រទូទាត់\n⏳ សូម Admin Approve ផ្ទៀងផ្ទាត់។`;
+            const caption = `🚨 មានការបញ្ជាទិញថ្មី!\n👤 Username: ${username}\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: បាន Upload វិក្កយបត្រ\n⏳ សូម Admin Approve ផ្ទៀងផ្ទាត់។`;
 
             if (fileInput.files.length > 0) {
                 const formData = new FormData();
