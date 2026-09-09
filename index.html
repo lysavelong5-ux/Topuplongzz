@@ -257,8 +257,8 @@
             letter-spacing: 0.5px;
         }
 
-        /* ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid 2 ជួរ) */
-        #roblox-section {
+        /* ផ្នែកបញ្ជីតម្លៃហ្គេម (រួមទាំង Free Fire & Roblox) */
+        .game-section {
             display: none;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -278,12 +278,53 @@
             gap: 8px;
         }
 
-        .roblox-grid {
+        .game-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
 
+        /* ទម្រង់កាត Free Fire (ពណ៌ស្វាយស្រដៀងនឹងរូបភាព) */
+        .ff-card {
+            background: linear-gradient(145deg, #9b6bc4, #7d49a7);
+            border: 1.5px solid #b98fe0;
+            border-radius: 14px;
+            padding: 14px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ff-card:active {
+            transform: scale(0.97);
+        }
+
+        .ff-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .ff-info .price {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .gem-icon {
+            font-size: 20px;
+        }
+
+        /* ទម្រង់កាត Roblox */
         .roblox-card {
             background: linear-gradient(145deg, #2a221b, #1e1914);
             border: 1.5px solid #4a3c2c;
@@ -302,7 +343,6 @@
             border-color: #23b0ff;
         }
 
-        /* អត្ថបទ "ចុចដើម្បីទិញ" និងសញ្ញាធីក */
         .card-top {
             display: flex;
             justify-content: space-between;
@@ -325,7 +365,6 @@
             font-size: 9px;
         }
 
-        /* ផ្នែកខ្លឹមសារខាងក្នុងកាត (ចំនួន និង រូបសញ្ញា) */
         .card-body {
             display: flex;
             justify-content: space-between;
@@ -523,6 +562,90 @@
             line-height: 1.5;
         }
 
+        /* QR Code Modal Styles */
+        .qr-modal-content {
+            background-color: #242424;
+            padding: 20px 15px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+        }
+
+        .qr-modal-content h3 {
+            margin-top: 0;
+            color: #1da1f2;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .qr-image {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 0 auto 10px auto;
+            display: block;
+            border: 2px solid #444;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .upload-container {
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .upload-container label {
+            font-size: 12px;
+            color: #1da1f2;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .file-input {
+            width: 100%;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: 1px dashed #555;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .close-btn {
+            background-color: #777;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .paid-btn {
+            background: linear-gradient(145deg, #34c759, #28a745);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
+        }
+
         /* Notification Modal Styles */
         .notif-modal-content {
             background-color: #242424;
@@ -615,7 +738,7 @@
             <h3>🔔 សារប្រកាសពីហាង</h3>
             <div class="notif-box" id="notifText">
                 <b>ស្វាគមន៍!</b> <span id="displayUser"></span><br>
-                រាល់ការបញ្ជាទិញកញ្ចប់ Robux ទាំងអស់ សូមចុចដើម្បីទាក់ទងមកកាន់ Admin ផ្ទាល់ [@Benzzxz]។ សូមអរគុណ!
+                រាល់ការបញ្ជាទិញកញ្ចប់ហ្គេម សូមស្កេនទូទាត់ និង Upload វិក្កយបត្រឱ្យបានត្រឹមត្រូវ។ សូមអរគុណ!
             </div>
             <button class="enter-shop-btn" onclick="closeNotifModal()">យល់ព្រម</button>
         </div>
@@ -637,7 +760,6 @@
                 <div class="menu-btn" onclick="toggleMenu()" title="ម៉ឺនុយ">
                     ☰
                 </div>
-                <!-- ផ្ទាំងរៀបចំបញ្ជីក្នុងម៉ឺនុយត្រេបី -->
                 <div id="dropdownMenu" class="dropdown-menu">
                     <div class="dropdown-item" onclick="openProfileModal(); closeMenu();">
                         <span>👤</span> គណនីរបស់ខ្ញុំ
@@ -678,10 +800,81 @@
             </div>
         </div>
 
-        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (តភ្ជាប់ទៅ Telegram @Benzzxz ទាំងអស់គ្នា) -->
-        <div id="roblox-section">
+        <!-- ផ្នែកបញ្ជីតម្លៃ Free Fire -->
+        <div id="freefire-section" class="game-section">
+            <div class="section-title">💎 តម្លៃកុម្ម៉ង់ទិញ Free Fire</div>
+            <div class="game-grid">
+                <!-- 25 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '25 Diamonds', '$0.30')">
+                    <div class="ff-info">
+                        <h4>25 💎</h4>
+                        <p class="price">$0.30</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 100 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '100 Diamonds', '$0.95')">
+                    <div class="ff-info">
+                        <h4>100 💎</h4>
+                        <p class="price">$0.95</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 310 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '310 Diamonds', '$2.94')">
+                    <div class="ff-info">
+                        <h4>310 💎</h4>
+                        <p class="price">$2.94</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 520 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '520 Diamonds', '$4.80')">
+                    <div class="ff-info">
+                        <h4>520 💎</h4>
+                        <p class="price">$4.80</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 1060 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '1060 Diamonds', '$8.85')">
+                    <div class="ff-info">
+                        <h4>1060 💎</h4>
+                        <p class="price">$8.85</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 2180 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '2180 Diamonds', '$18.50')">
+                    <div class="ff-info">
+                        <h4>2180 💎</h4>
+                        <p class="price">$18.50</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 5600 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '5600 Diamonds', '$47.99')">
+                    <div class="ff-info">
+                        <h4>5600 💎</h4>
+                        <p class="price">$47.99</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <!-- 11500 Diamonds -->
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '11500 Diamonds', '$95.00')">
+                    <div class="ff-info">
+                        <h4>11500 💎</h4>
+                        <p class="price">$95.00</p>
+                    </div>
+                    <span class="gem-icon">💎</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox -->
+        <div id="roblox-section" class="game-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
-            <div class="roblox-grid">
+            <div class="game-grid">
                 <!-- 80 Robux -->
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
                     <div class="card-top">
@@ -835,6 +1028,26 @@
         </div>
     </div>
 
+    <!-- ផ្ទាំង QR Code Modal (សម្រាប់ Free Fire និងហ្គេមផ្សេងៗ) -->
+    <div id="qrModal" class="modal" style="display: none;">
+        <div class="qr-modal-content">
+            <h3>ស្កេនទូទាត់ប្រាក់</h3>
+            <!-- Link QR Code ដែលបងបានផ្ដល់ជូន -->
+            <img src="https://ibb.co/0yGQfJhL" alt="QR Code" class="qr-image" onerror="this.src='https://img.sanishtech.com/u/36e6f97a5af37766e3c610920923b3e9.jpeg'">
+            <p id="modalText" style="font-size: 11px; color: #cccccc; margin-bottom: 8px; line-height: 1.3;"></p>
+            
+            <div class="upload-container">
+                <label for="receiptFile">📎 Upload វិក្កយបត្រទូទាត់:</label>
+                <input type="file" id="receiptFile" accept="image/*" class="file-input">
+            </div>
+
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeModal()">បិទ</button>
+                <button class="paid-btn" onclick="confirmPayment()">បានទូទាត់រួច</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ផ្នែក Footer ខាងក្រោមສຸດ -->
     <div class="footer">
         LY.seavlong 24/7 &nbsp;&nbsp; © copyright 2026 &nbsp;&nbsp; Fasting safe 10+1
@@ -843,6 +1056,7 @@
     <script>
         const BOT_TOKEN = "8978610299:AAEDQs8p1D0xIWI5vhYUaVnNcdh90oBhzfc";
         const GROUP_ID = "-1004350334105";
+        let selectedOrder = "";
 
         window.onload = function() {
             const savedUser = localStorage.getItem('longzz_username');
@@ -853,7 +1067,6 @@
             }
         }
 
-        // បើក ឬ បិទ ម៉ឺនុយត្រេបី (☰)
         function toggleMenu() {
             const menu = document.getElementById('dropdownMenu');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
@@ -863,7 +1076,6 @@
             document.getElementById('dropdownMenu').style.display = 'none';
         }
 
-        // បិទម៉ឺនុយបើចុចក្រៅ
         window.onclick = function(event) {
             if (!event.target.closest('.menu-container')) {
                 closeMenu();
@@ -972,13 +1184,79 @@
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
 
-            const robloxSection = document.getElementById('roblox-section');
-            if (gameName === 'Roblox') {
-                robloxSection.style.display = 'block';
+            // លាក់គ្រប់ section ទាំងអស់សិន
+            document.querySelectorAll('.game-section').forEach(sec => sec.style.display = 'none');
+
+            if (gameName === 'Free Fire') {
+                document.getElementById('freefire-section').style.display = 'block';
+            } else if (gameName === 'Roblox') {
+                document.getElementById('roblox-section').style.display = 'block';
             } else {
-                robloxSection.style.display = 'none';
                 alert('សេវាកម្ម ' + gameName + ' មិនទាន់មានស្តុកទេ សូមអភ័យទោស!');
             }
+        }
+
+        function buyGameItem(gameName, itemName, price) {
+            const username = localStorage.getItem('longzz_username') || 'Unknown';
+            selectedOrder = `${gameName} - ${itemName} (${price}) [User: ${username}]`;
+            const modal = document.getElementById('qrModal');
+            const modalText = document.getElementById('modalText');
+            
+            modalText.innerHTML = `អតិថិជន: <b>${username}</b><br>ទំនិញ: <b>${gameName} ${itemName} (${price})</b><br>សូមស្កេនទូទាត់ និង Upload រូបវិក្កយបត្រ!`;
+            modal.style.display = 'flex';
+        }
+
+        function confirmPayment() {
+            const username = localStorage.getItem('longzz_username') || 'Unknown';
+            const fileInput = document.getElementById('receiptFile');
+            const caption = `🚨 មានការបញ្ជាទិញថ្មី!\n👤 Username: ${username}\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: បាន Upload វិក្កយបត្រ\n⏳ សូម Admin Approve ផ្ទៀងផ្ទាត់។`;
+
+            if (fileInput.files.length > 0) {
+                const formData = new FormData();
+                formData.append('chat_id', GROUP_ID);
+                formData.append('caption', caption);
+                formData.append('photo', fileInput.files[0]);
+
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('បានបញ្ជូនវិក្កយបត្រ និងព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
+                        fileInput.value = "";
+                    } else {
+                        alert('បញ្ជូនជោគជ័យ ប៉ុន្តែមានការជូនដំណឹងពី Telegram៖ ' + data.description);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('បានបញ្ជូនសំណើជោគជ័យ!');
+                });
+            } else {
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: GROUP_ID, text: caption })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('បានបញ្ជូនព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
+                    } else {
+                        alert('បញ្ហា៖ ' + data.description);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('qrModal').style.display = 'none';
         }
     </script>
 
