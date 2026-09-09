@@ -1,7 +1,759 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longzztopup Angkor</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            position: relative;
+        }
+
+        .logo-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 
+                        inset 0 2px 3px rgba(255, 255, 255, 0.2);
+            border: 2px solid #2a2a2a;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 19px;
+            margin: 0 0 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+        }
+
+        .verified-badge {
+            color: #ffffff;
+            background-color: #1da1f2;
+            font-size: 10px;
+            width: 14px;
+            height: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .profile-info p {
+            margin: 0;
+            color: #9e9e9e;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* ផ្នែករូបសញ្ញាត្រេបី (Menu 3 ធ្នាប់) នៅជ្រុងខាងស្តាំ */
+        .menu-container {
+            position: absolute;
+            right: 5px;
+            top: 15px;
+        }
+
+        .menu-btn {
+            background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
+            border: 1px solid #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.1s ease;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .menu-btn:active {
+            transform: scale(0.92);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 48px;
+            background-color: #242424;
+            border: 1px solid #333;
+            border-radius: 14px;
+            width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .dropdown-item {
+            padding: 12px 15px;
+            font-size: 13px;
+            color: #ffffff;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #2f2f2f;
+        }
+
+        /* ផ្នែកអក្សររត់វិលជុំ */
+        .marquee-box {
+            background: linear-gradient(145deg, #252525, #1c1c1c);
+            border: 1px solid #333333;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 8px 0;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 12s linear infinite;
+            font-size: 13px;
+            font-weight: bold;
+            color: #1da1f2;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .admin-panel-btn {
+            background: linear-gradient(145deg, #ff9500, #e08200);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            width: 100%;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(255, 149, 0, 0.4);
+            display: none;
+        }
+
+        .banner-container {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .cards-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #e6e9ef, #bec2cb);
+            color: #111111;
+            padding: 15px 8px;
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 
+                        inset 0 2px 4px rgba(255, 255, 255, 0.8), 
+                        inset 0 -3px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .card:active, .card.active {
+            transform: translateY(-2px);
+            background: linear-gradient(145deg, #ffffff, #d0d4dd);
+            border: 1px solid #1da1f2;
+        }
+
+        .card h3 {
+            margin: 0 0 6px 0;
+            font-size: 13px;
+            font-weight: 800;
+            color: #111111;
+        }
+
+        .card span {
+            font-size: 9px;
+            color: #555555;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .game-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1da1f2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-id-box {
+            background-color: #242424;
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .game-id-box label {
+            font-size: 12px;
+            color: #1da1f2;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .game-id-input {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #1a1a1a;
+            border: 1px solid #555;
+            color: #ffffff;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .ff-card {
+            background: linear-gradient(145deg, #9b6bc4, #7d49a7);
+            border: 1.5px solid #b98fe0;
+            border-radius: 14px;
+            padding: 14px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ff-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .ff-info .price {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .gem-icon {
+            font-size: 20px;
+        }
+
+        .roblox-card {
+            background: linear-gradient(145deg, #2a221b, #1e1914);
+            border: 1.5px solid #4a3c2c;
+            border-radius: 14px;
+            padding: 12px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+            display: block;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 11px;
+            color: #23b0ff;
+            font-weight: bold;
+        }
+
+        .check-icon {
+            width: 16px;
+            height: 16px;
+            background-color: #23b0ff;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+        }
+
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-info h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .card-info .price {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 700;
+            color: #a0a0a0;
+        }
+
+        .robux-logo-box {
+            width: 42px;
+            height: 42px;
+            background: #161616;
+            border: 1px solid #444;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content, .admin-modal-content, .qr-modal-content, .notif-modal-content {
+            background-color: #242424;
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+        }
+
+        .modal-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid #1da1f2;
+        }
+
+        .username-input {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            outline: none;
+        }
+
+        .enter-shop-btn {
+            background: linear-gradient(145deg, #23b0ff, #0082d6);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+        }
+
+        .logout-btn {
+            background: linear-gradient(145deg, #ff3b30, #d32f2f);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .admin-textarea {
+            width: 100%;
+            height: 80px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 12px;
+            resize: none;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .user-list-box {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            height: 100px;
+            overflow-y: auto;
+            font-size: 12px;
+            color: #ddd;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .qr-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 0 auto 10px auto;
+            display: block;
+            border: 2px solid #444;
+        }
+
+        .file-input {
+            width: 100%;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: 1px dashed #555;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-btn {
+            background-color: #777;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .paid-btn {
+            background: linear-gradient(145deg, #34c759, #28a745);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .notif-box {
+            background-color: #1a1a1a;
+            border-left: 3px solid #1da1f2;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #dddddd;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            font-size: 10px;
+            color: #777777;
+            background-color: #141414;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
+            <h3>Longzztopup Angkor</h3>
+            <p>សូមបញ្ចូល Username របស់អ្នកដើម្បីបន្តចូលក្នុងហាងទំនិញ៖</p>
+            <input type="text" id="usernameInput" class="username-input" placeholder="ឧ. Seavlong168">
+            <button class="enter-shop-btn" onclick="saveUsername()">ចូលក្នុងហាងទំនិញ</button>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="modal-logo">
+            <h3>ព័ត៌មានគណនី</h3>
+            <p>Username របស់អ្នក:<br><b id="profileUsername" style="color: #1da1f2; font-size: 16px;"></b></p>
+            <button class="enter-shop-btn" onclick="closeProfileModal()">បិទ</button>
+            <button class="logout-btn" onclick="logoutUser()">ចាកចេញ (Logout)</button>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal" style="display: none;">
+        <div class="admin-modal-content">
+            <h3>⚙️ ផ្ទាំងគ្រប់គ្រង Admin</h3>
+            <label class="admin-section-label">📋 បញ្ជីឈ្មោះ User ទាំងអស់:</label>
+            <div id="allUsersList" class="user-list-box">មិនទាន់មាន User ចុះឈ្មោះទេ។</div>
+            <label class="admin-section-label">📢 ផ្ញើសារប្រកាសជូន User ទាំងអស់:</label>
+            <textarea id="adminMsgInput" class="admin-textarea" placeholder="សរសេរសារប្រកាសនៅទីនេះ..."></textarea>
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeAdminPanel()">បិទ</button>
+                <button class="paid-btn" onclick="saveAdminMessage()">រក្សាទុក</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notifModal" class="modal" style="display: none;">
+        <div class="notif-modal-content">
+            <h3>🔔 សារប្រកាសពីហាង</h3>
+            <div class="notif-box" id="notifText">
+                <b>ស្វាគមន៍!</b> <span id="displayUser"></span><br>
+                រាល់ការបញ្ជាទិញកញ្ចប់ហ្គេម សូមបញ្ចូល ID Game, ស្កេនទូទាត់ និង Upload វិក្កយបត្រឱ្យបានត្រឹមត្រូវ។ សូមអរគុណ!
+            </div>
+            <button class="enter-shop-btn" onclick="closeNotifModal()">យល់ព្រម</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://i.ibb.co/N6Qf41DC/logo.jpg" alt="Logo" class="logo">
+            </div>
+            <div class="profile-info">
+                <h1>Longzztopup Angkor <span class="verified-badge">✓</span></h1>
+                <p>Topup game store Free Fire Mobile Roblox PUBG</p>
+            </div>
+            
+            <div class="menu-container">
+                <div class="menu-btn" onclick="toggleMenu()" title="ម៉ឺនុយ">☰</div>
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <div class="dropdown-item" onclick="openProfileModal(); closeMenu();"><span>👤</span> គណនីរបស់ខ្ញុំ</div>
+                    <div class="dropdown-item" onclick="openNotifModal(); closeMenu();"><span>🔔</span> សារជូនដំណឹង</div>
+                </div>
+            </div>
+        </div>
+
+        <button id="adminBtn" class="admin-panel-btn" onclick="openAdminPanel()">⚙️ មើលបញ្ជី User & ផ្ញើសារ</button>
+
+        <div class="marquee-box">
+            <div class="marquee-text">✨ សេវាកម្មល្អ លឿនរហ័ស ទំនុកចិត្ត 24/7 ✨ ស្វាគមន៍អតិថិជនទាំងអស់មកកាន់ហាងយើងខ្ញុំ!</div>
+        </div>
+
+        <div class="banner-container">
+            <img src="https://user30924.na.imgto.link/public/20260908/img-7970.avif" alt="Banner" class="banner-img" onerror="this.src='https://i.ibb.co/N6Qf41DC/logo.jpg'">
+        </div>
+
+        <div class="cards-wrapper">
+            <div class="card" onclick="selectCode(this, 'Free Fire')">
+                <h3>Free Fire</h3>
+                <span>TOPUP</span>
+            </div>
+            <div class="card" onclick="selectCode(this, 'Mobile')">
+                <h3>Mobile</h3>
+                <span>TOPUP</span>
+            </div>
+            <div class="card" onclick="selectCode(this, 'Roblox')">
+                <h3>Roblox</h3>
+                <span>TOPUP</span>
+            </div>
+        </div>
+
+        <!-- Free Fire Section -->
+        <div id="freefire-section" class="game-section">
+            <div class="section-title">💎 តម្លៃកុម្ម៉ង់ទិញ Free Fire</div>
+            <div class="game-id-box">
+                <label for="ffGameId">🆔 បញ្ចូល Free Fire UID របស់អ្នក:</label>
+                <input type="text" id="ffGameId" class="game-id-input" placeholder="ឧ. 1234567890">
+            </div>
+            <div class="game-grid">
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '25 Diamonds', '$0.30', 'ffGameId')">
+                    <div class="ff-info"><h4>25 💎</h4><p class="price">$0.30</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '100 Diamonds', '$0.95', 'ffGameId')">
+                    <div class="ff-info"><h4>100 💎</h4><p class="price">$0.95</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '310 Diamonds', '$2.94', 'ffGameId')">
+                    <div class="ff-info"><h4>310 💎</h4><p class="price">$2.94</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '520 Diamonds', '$4.80', 'ffGameId')">
+                    <div class="ff-info"><h4>520 💎</h4><p class="price">$4.80</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '1060 Diamonds', '$8.85', 'ffGameId')">
+                    <div class="ff-info"><h4>1060 💎</h4><p class="price">$8.85</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '2180 Diamonds', '$18.50', 'ffGameId')">
+                    <div class="ff-info"><h4>2180 💎</h4><p class="price">$18.50</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '5600 Diamonds', '$47.99', 'ffGameId')">
+                    <div class="ff-info"><h4>5600 💎</h4><p class="price">$47.99</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+                <div class="ff-card" onclick="buyGameItem('Free Fire', '11500 Diamonds', '$95.00', 'ffGameId')">
+                    <div class="ff-info"><h4>11500 💎</h4><p class="price">$95.00</p></div>
+                    <span class="gem-icon">💎</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roblox Section -->
+        <div id="roblox-section" class="game-section">
+            <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
+            <div class="game-grid">
+                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                    <div class="card-body">
+                        <div class="card-info"><h4>80</h4><p class="price">$1.00</p></div>
+                        <div class="robux-logo-box">🪙</div>
+                    </div>
+                </a>
+                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                    <div class="card-body">
+                        <div class="card-info"><h4>160</h4><p class="price">$2.00</p></div>
+                        <div class="robux-logo-box">🪙</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal" style="display: none;">
+        <div class="qr-modal-content">
+            <h3>ស្កេនទូទាត់ប្រាក់</h3>
+            <img src="https://img.sanishtech.com/u/b79d5e746da5dd90aacce3e0f4145984.png" alt="QR Code" class="qr-image">
+            <p id="modalText" style="font-size: 11px; color: #cccccc; margin-bottom: 8px; line-height: 1.3;"></p>
+            <div class="upload-container">
+                <label for="receiptFile" style="font-size:11px; color:#1da1f2; display:block; margin-bottom:5px;">📎 Upload វិក្កយបត្រ:</label>
+                <input type="file" id="receiptFile" accept="image/*" class="file-input">
+            </div>
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeModal()">បិទ</button>
+                <button class="paid-btn" onclick="confirmPayment()">បានទូទាត់រួច</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        LY.seavlong 24/7 &nbsp;&nbsp; © copyright 2026
+    </div>
+
     <script>
         const BOT_TOKEN = "8978610299:AAEDQs8p1D0xIWI5vhYUaVnNcdh90oBhzfc";
         const GROUP_ID = "-1004350334105";
         let selectedOrder = "";
+        let gameIdValue = "";
 
         window.onload = function() {
             const savedUser = localStorage.getItem('longzz_username');
@@ -33,46 +785,32 @@
                 alert('សូមបញ្ចូល Username របស់អ្នកសិន!');
                 return;
             }
-            
             localStorage.setItem('longzz_username', inputVal);
-            
             let allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
             if (!allUsers.includes(inputVal)) {
                 allUsers.push(inputVal);
                 localStorage.setItem('longzz_all_users', JSON.stringify(allUsers));
             }
-
             checkAdminAccess(inputVal);
             document.getElementById('welcomeModal').style.display = 'none';
-
             if (inputVal.toLowerCase() !== 'longzzspp') {
                 sendNewUserNotification(inputVal);
             }
         }
 
-        // ផ្ញើសារแจ้งเตือน User ថ្មី พร้อมปุ่ม Approve
         function sendNewUserNotification(username) {
             const msg = `✨ មានអតិថិជនថ្មីបង្កើតអាខោនចូល Mini App!\n👤 Username: ${username}\n🚀 ត្រៀមខ្លួនទទួលការបញ្ជាទិញ!`;
             const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-            
             const payload = {
                 chat_id: GROUP_ID,
                 text: msg,
-                reply_markup: {
-                    inline_keyboard: [
-                        [
-                            { text: "✅ Approve ជោគជ័យ", callback_data: "approved_user" }
-                        ]
-                    ]
-                }
+                reply_markup: { inline_keyboard: [[{ text: "✅ Approve ជោគជ័យ", callback_data: "approved_user" }]] }
             };
-
             fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            })
-            .catch(error => console.error('Error notifying new user:', error));
+            }).catch(error => console.error(error));
         }
 
         function checkAdminAccess(username) {
@@ -108,10 +846,6 @@
             } else {
                 listContainer.innerHTML = "មិនទាន់មាន User ចុះឈ្មោះទេ។";
             }
-
-            const currentMsg = localStorage.getItem('admin_custom_notif') || '';
-            document.getElementById('adminMsgInput').value = currentMsg;
-
             document.getElementById('adminModal').style.display = 'flex';
         }
 
@@ -122,14 +856,14 @@
         function saveAdminMessage() {
             const msg = document.getElementById('adminMsgInput').value.trim();
             localStorage.setItem('admin_custom_notif', msg);
-            alert('បានរក្សាទុក និងផ្ញើសារប្រកាសជូន User ជោគជ័យ!');
+            alert('បានរក្សាទុកជោគជ័យ!');
             document.getElementById('adminModal').style.display = 'none';
         }
 
         function openNotifModal() {
             const customMsg = localStorage.getItem('admin_custom_notif');
             if (customMsg) {
-                document.getElementById('notifText').innerHTML = `<b>សារពី Admin (Longzzspp):</b><br>${customMsg}`;
+                document.getElementById('notifText').innerHTML = `<b>សារពី Admin:</b><br>${customMsg}`;
             }
             document.getElementById('notifModal').style.display = 'flex';
         }
@@ -141,19 +875,15 @@
         function selectCode(element, gameName) {
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
-
             document.querySelectorAll('.game-section').forEach(sec => sec.style.display = 'none');
-
             if (gameName === 'Free Fire') {
                 document.getElementById('freefire-section').style.display = 'block';
             } else if (gameName === 'Roblox') {
                 document.getElementById('roblox-section').style.display = 'block';
             } else {
-                alert('សេវាកម្ម ' + gameName + ' មិនទាន់មានស្តុកទេ សូមអភ័យទោស!');
+                alert('សេវាកម្ម ' + gameName + ' មិនទាន់មានស្តុកទេ!');
             }
         }
-
-        let gameIdValue = "";
 
         function buyGameItem(gameName, itemName, price, inputId) {
             const gameId = document.getElementById(inputId).value.trim();
@@ -162,15 +892,13 @@
                 document.getElementById(inputId).focus();
                 return;
             }
-
             gameIdValue = gameId;
             const username = localStorage.getItem('longzz_username') || 'Unknown';
             selectedOrder = `${gameName} - ${itemName} (${price}) [Game ID: ${gameId}] [User: ${username}]`;
             
             const modal = document.getElementById('qrModal');
             const modalText = document.getElementById('modalText');
-            
-            modalText.innerHTML = `អតិថិជន: <b>${username}</b><br>ID Game: <b>${gameId}</b><br>ទំនិញ: <b>${gameName} ${itemName} (${price})</b><br>សូមស្កេនទូទាត់ និង Upload រូបវិក្កយបត្រ!`;
+            modalText.innerHTML = `អតិថិជន: <b>${username}</b><br>ID: <b>${gameId}</b><br>ទំនិញ: <b>${itemName} (${price})</b>`;
             modal.style.display = 'flex';
         }
 
@@ -178,15 +906,7 @@
             const username = localStorage.getItem('longzz_username') || 'Unknown';
             const fileInput = document.getElementById('receiptFile');
             const caption = `🚨 មានការបញ្ជាទិញថ្មី!\n👤 Username: ${username}\n🆔 ID Game: ${gameIdValue}\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: បាន Upload វិក្កយបត្រ\n⏳ សូម Admin Approve ផ្ទៀងផ្ទាត់។`;
-
-            // ប៊ូតុង Approve សម្រាប់ឱ្យ Admin ចុចក្នុង Telegram Group
-            const replyMarkup = {
-                inline_keyboard: [
-                    [
-                        { text: "✅ Approve ជោគជ័យ", callback_data: "approved_order" }
-                    ]
-                ]
-            };
+            const replyMarkup = { inline_keyboard: [[{ text: "✅ Approve ជោគជ័យ", callback_data: "approved_order" }]] };
 
             if (fileInput.files.length > 0) {
                 const formData = new FormData();
@@ -198,42 +918,23 @@
                 fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
                     method: 'POST',
                     body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
+                }).then(res => res.json()).then(data => {
                     if(data.ok) {
-                        alert('បានបញ្ជូនវិក្កយបត្រ និងព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
+                        alert('បានបញ្ជូនវិក្កយបត្រទៅកាន់ Admin ជោគជ័យ!');
                         fileInput.value = "";
-                    } else {
-                        alert('បញ្ជូនជោគជ័យ ប៉ុន្តែមានការជូនដំណឹងពី Telegram៖ ' + data.description);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('បានបញ្ជូនសំណើជោគជ័យ!');
-                });
-            } else {
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        chat_id: GROUP_ID, 
-                        text: caption,
-                        reply_markup: replyMarkup
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.ok) {
-                        alert('បានបញ្ជូនព័ត៌មានទៅកាន់ Admin ក្នុងគ្រុបជោគជ័យ!');
                     } else {
                         alert('បញ្ហា៖ ' + data.description);
                     }
-                })
-                .catch(error => console.error('Error:', error));
+                }).catch(err => alert('បញ្ជូនសំណើជោគជ័យ!'));
+            } else {
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: GROUP_ID, text: caption, reply_markup: replyMarkup })
+                }).then(res => res.json()).then(data => {
+                    if(data.ok) alert('បានបញ្ជូនព័ត៌មានទៅកាន់ Admin ជោគជ័យ!');
+                }).catch(err => console.error(err));
             }
-
             closeModal();
         }
 
@@ -241,3 +942,5 @@
             document.getElementById('qrModal').style.display = 'none';
         }
     </script>
+</body>
+</html>
