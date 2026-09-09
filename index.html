@@ -238,7 +238,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid 2 ជួរ ស្រដៀងក្នុងរូបភាព) */
+        /* ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid 2 ជួរ) */
         #roblox-section {
             display: none;
             animation: fadeIn 0.3s ease-in-out;
@@ -276,36 +276,32 @@
             transition: all 0.2s ease;
         }
 
-        .roblox-card.selected {
-            border-color: #d4af37;
-            background: linear-gradient(145deg, #352b21, #241e17);
+        .roblox-card:active {
+            transform: scale(0.97);
+            border-color: #23b0ff;
         }
 
-        /* អត្ថបទខាងលើ និង សញ្ញាធីក */
+        /* អត្ថបទ "ចុចដើម្បីទិញ" និងសញ្ញាធីក */
         .card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
             font-size: 11px;
-            color: #d4af37;
+            color: #23b0ff;
             font-weight: bold;
         }
 
         .check-icon {
             width: 16px;
             height: 16px;
-            background-color: #d4af37;
-            color: #000;
+            background-color: #23b0ff;
+            color: #fff;
             border-radius: 50%;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-        }
-
-        .roblox-card.selected .check-icon {
-            display: flex;
+            font-size: 9px;
         }
 
         /* ផ្នែកខ្លឹមសារខាងក្នុងកាត (ចំនួន និង រូបសញ្ញា) */
@@ -316,7 +312,7 @@
         }
 
         .card-info h4 {
-            margin: 0 0 5px 0;
+            margin: 0 0 4px 0;
             font-size: 16px;
             font-weight: 800;
             color: #ffffff;
@@ -324,14 +320,14 @@
 
         .card-info .price {
             margin: 0;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            color: #d4af37;
+            color: #a0a0a0;
         }
 
         .robux-logo-box {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             background: #161616;
             border: 1px solid #444;
             border-radius: 10px;
@@ -739,14 +735,14 @@
             </div>
         </div>
 
-        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid ប្រអប់២ជួរ ស្អាតដូចក្នុងរូបភាព) -->
+        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid ២ជួរ មានពាក្យ "ចុចដើម្បីទិញ") -->
         <div id="roblox-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
             <div class="roblox-grid">
                 <!-- 80 Robux (តភ្ជាប់ទៅ Telegram @Benzzxz) -->
                 <div class="roblox-card" onclick="window.open('https://t.me/Benzzxz', '_blank')">
                     <div class="card-top">
-                        <span>ធានាមកអេងមីន ❤️</span>
+                        <span>ចុចដើម្បីទិញ</span>
                         <div class="check-icon">✓</div>
                     </div>
                     <div class="card-body">
@@ -761,7 +757,7 @@
                 <!-- 160 Robux (តភ្ជាប់ទៅ Telegram @Benzzxz) -->
                 <div class="roblox-card" onclick="window.open('https://t.me/Benzzxz', '_blank')">
                     <div class="card-top">
-                        <span>ធានាមកអេងមីន ❤️</span>
+                        <span>ចុចដើម្បីទិញ</span>
                         <div class="check-icon">✓</div>
                     </div>
                     <div class="card-body">
@@ -776,7 +772,7 @@
                 <!-- 240 Robux (ទូទាត់ QR Code) -->
                 <div class="roblox-card" onclick="buyRobux('240 Robux', '$3.00')">
                     <div class="card-top">
-                        <span>ធានាមកអេងមីន ❤️</span>
+                        <span>ចុចដើម្បីទិញ</span>
                         <div class="check-icon">✓</div>
                     </div>
                     <div class="card-body">
@@ -791,7 +787,7 @@
                 <!-- 400 Robux (ទូទាត់ QR Code) -->
                 <div class="roblox-card" onclick="buyRobux('400 Robux', '$5.00')">
                     <div class="card-top">
-                        <span>ធានាមកអេងមីន ❤️</span>
+                        <span>ចុចដើម្បីទិញ</span>
                         <div class="check-icon">✓</div>
                     </div>
                     <div class="card-body">
@@ -806,7 +802,7 @@
                 <!-- 800 Robux (ទូទាត់ QR Code) -->
                 <div class="roblox-card" onclick="buyRobux('800 Robux', '$10.00')">
                     <div class="card-top">
-                        <span>ធានាមកអេងមីន ❤️</span>
+                        <span>ចុចដើម្បីទិញ</span>
                         <div class="check-icon">✓</div>
                     </div>
                     <div class="card-body">
@@ -821,7 +817,7 @@
                 <!-- 1000 Robux (ទូទាត់ QR Code) -->
                 <div class="roblox-card" onclick="buyRobux('1000 Robux', '$12.50')">
                     <div class="card-top">
-                        <span>ធានាមកអេងមីន ❤️</span>
+                        <span>ចុចដើម្បីទិញ</span>
                         <div class="check-icon">✓</div>
                     </div>
                     <div class="card-body">
