@@ -204,7 +204,6 @@
             display: block;
         }
 
-        /* 🌟 ស្តាយសម្រាប់ប្រអប់ Total Users និង Total Orders */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -692,15 +691,15 @@
             <img src="https://user30924.na.imgto.link/public/20260908/img-7970.avif" alt="Banner" class="banner-img" onerror="this.src='https://i.ibb.co/N6Qf41DC/logo.jpg'">
         </div>
 
-        <!-- 🌟 បង្ហាញ Total Users និង Total Orders នៅចំកន្លែងនេះ -->
+        <!-- Total Users & Total Orders (ចាប់ផ្តើមពី 200 និង 500 ហើយបូកបន្ថែមស្វ័យប្រវត្តិ) -->
         <div class="stats-container">
             <div class="stat-card">
                 <h4>Total Users</h4>
-                <p class="stat-value" id="totalUsersCount">0</p>
+                <p class="stat-value" id="totalUsersCount">200</p>
             </div>
             <div class="stat-card">
                 <h4>Total Orders</h4>
-                <p class="stat-value" id="totalOrdersCount">0</p>
+                <p class="stat-value" id="totalOrdersCount">500</p>
             </div>
         </div>
 
@@ -884,10 +883,11 @@
         }
 
         function updateStatsDisplay() {
-            const allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
-            const totalOrders = localStorage.getItem('longzz_total_orders') || '0';
-            document.getElementById('totalUsersCount').innerText = allUsers.length;
-            document.getElementById('totalOrdersCount').innerText = totalOrders;
+            let extraUsers = JSON.parse(localStorage.getItem('longzz_extra_users') || '[]');
+            let extraOrders = parseInt(localStorage.getItem('longzz_extra_orders') || '0');
+
+            document.getElementById('totalUsersCount').innerText = 200 + extraUsers.length;
+            document.getElementById('totalOrdersCount').innerText = 500 + extraOrders;
         }
 
         function toggleMenu() {
@@ -912,11 +912,19 @@
                 return;
             }
             localStorage.setItem('longzz_username', inputVal);
+            
+            let extraUsers = JSON.parse(localStorage.getItem('longzz_extra_users') || '[]');
+            if (!extraUsers.includes(inputVal)) {
+                extraUsers.push(inputVal);
+                localStorage.setItem('longzz_extra_users', JSON.stringify(extraUsers));
+            }
+
             let allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
             if (!allUsers.includes(inputVal)) {
                 allUsers.push(inputVal);
                 localStorage.setItem('longzz_all_users', JSON.stringify(allUsers));
             }
+
             updateStatsDisplay();
             checkAdminAccess(inputVal);
             document.getElementById('welcomeModal').style.display = 'none';
@@ -1030,9 +1038,8 @@
         }
 
         function confirmPayment() {
-            // បន្ថែមចំនួន Total Orders
-            let totalOrders = parseInt(localStorage.getItem('longzz_total_orders') || '0') + 1;
-            localStorage.setItem('longzz_total_orders', totalOrders);
+            let extraOrders = parseInt(localStorage.getItem('longzz_extra_orders') || '0') + 1;
+            localStorage.setItem('longzz_extra_orders', extraOrders);
             updateStatsDisplay();
 
             const username = localStorage.getItem('longzz_username') || 'Unknown';
