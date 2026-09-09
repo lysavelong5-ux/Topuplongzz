@@ -175,7 +175,7 @@
             display: none;
         }
 
-        /* ផ្នែក Banner ដាក់ពីលើសេវាកម្មហ្គេម */
+        /* ផ្នែក Banner */
         .banner-container {
             width: 100%;
             margin-bottom: 20px;
@@ -238,7 +238,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* ផ្នែកបញ្ជីតម្លៃ Roblox */
+        /* ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid 2 ជួរ ស្រដៀងក្នុងរូបភាព) */
         #roblox-section {
             display: none;
             animation: fadeIn 0.3s ease-in-out;
@@ -259,69 +259,87 @@
             gap: 8px;
         }
 
-        .roblox-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .roblox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
-        .roblox-item {
-            background: linear-gradient(145deg, #2b2b2b, #1f1f1f);
-            border-radius: 12px;
-            padding: 12px 16px;
+        .roblox-card {
+            background: linear-gradient(145deg, #2a221b, #1e1914);
+            border: 1.5px solid #4a3c2c;
+            border-radius: 14px;
+            padding: 12px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .roblox-card.selected {
+            border-color: #d4af37;
+            background: linear-gradient(145deg, #352b21, #241e17);
+        }
+
+        /* អត្ថបទខាងលើ និង សញ្ញាធីក */
+        .card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5),
-                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            border: 1px solid #333333;
+            margin-bottom: 10px;
+            font-size: 11px;
+            color: #d4af37;
+            font-weight: bold;
         }
 
-        .robux-amount {
+        .check-icon {
+            width: 16px;
+            height: 16px;
+            background-color: #d4af37;
+            color: #000;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .roblox-card.selected .check-icon {
+            display: flex;
+        }
+
+        /* ផ្នែកខ្លឹមសារខាងក្នុងកាត (ចំនួន និង រូបសញ្ញា) */
+        .card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .card-info .price {
+            margin: 0;
             font-size: 14px;
             font-weight: 700;
-            color: #ffffff;
+            color: #d4af37;
+        }
+
+        .robux-logo-box {
+            width: 40px;
+            height: 40px;
+            background: #161616;
+            border: 1px solid #444;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-
-        .robux-icon {
-            color: #ff3b30;
-            font-size: 15px;
-        }
-
-        .right-side {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .robux-price {
-            font-size: 13px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .buy-btn {
-            background: linear-gradient(145deg, #23b0ff, #0082d6);
-            color: #ffffff;
-            border: none;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(29, 161, 242, 0.4),
-                        inset 0 1px 2px rgba(255, 255, 255, 0.4);
-            transition: transform 0.1s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .buy-btn:active {
-            transform: scale(0.95);
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
 
         /* Modal / Welcome Styling */
@@ -700,7 +718,7 @@
             <div class="marquee-text">✨ សេវាកម្មល្អ លឿនរហ័ស ទំនុកចិត្ត 24/7 ✨ ស្វាគមន៍អតិថិជនទាំងអស់មកកាន់ហាងយើងខ្ញុំ!</div>
         </div>
 
-        <!-- ផ្នែក Banner ដាក់ពីលើសេវាកម្មហ្គេម (គ្មានអក្សរ Banner) -->
+        <!-- ផ្នែក Banner -->
         <div class="banner-container">
             <img src="https://user30924.na.imgto.link/public/20260908/img-7970.avif" alt="Banner" class="banner-img" id="bannerImg" onerror="this.src='https://i.ibb.co/N6Qf41DC/logo.jpg'">
         </div>
@@ -721,50 +739,97 @@
             </div>
         </div>
 
-        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox -->
+        <!-- ផ្នែកបញ្ជីតម្លៃ Roblox (ទម្រង់ Grid ប្រអប់២ជួរ ស្អាតដូចក្នុងរូបភាព) -->
         <div id="roblox-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
-            <div class="roblox-list">
-                <div class="roblox-item">
-                    <div class="robux-amount"><span class="robux-icon">🪙</span> 80 Robux</div>
-                    <div class="right-side">
-                        <div class="robux-price">$1.00</div>
-                        <a href="https://t.me/Benzzxz" target="_blank" class="buy-btn">ទិញ</a>
+            <div class="roblox-grid">
+                <!-- 80 Robux (តភ្ជាប់ទៅ Telegram @Benzzxz) -->
+                <div class="roblox-card" onclick="window.open('https://t.me/Benzzxz', '_blank')">
+                    <div class="card-top">
+                        <span>ធានាមកអេងមីន ❤️</span>
+                        <div class="check-icon">✓</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <h4>80</h4>
+                            <p class="price">$1.00</p>
+                        </div>
+                        <div class="robux-logo-box">🪙</div>
                     </div>
                 </div>
-                <div class="roblox-item">
-                    <div class="robux-amount"><span class="robux-icon">🪙</span> 160 Robux</div>
-                    <div class="right-side">
-                        <div class="robux-price">$2.00</div>
-                        <a href="https://t.me/Benzzxz" target="_blank" class="buy-btn">ទិញ</a>
+
+                <!-- 160 Robux (តភ្ជាប់ទៅ Telegram @Benzzxz) -->
+                <div class="roblox-card" onclick="window.open('https://t.me/Benzzxz', '_blank')">
+                    <div class="card-top">
+                        <span>ធានាមកអេងមីន ❤️</span>
+                        <div class="check-icon">✓</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <h4>160</h4>
+                            <p class="price">$2.00</p>
+                        </div>
+                        <div class="robux-logo-box">🪙</div>
                     </div>
                 </div>
-                <div class="roblox-item">
-                    <div class="robux-amount"><span class="robux-icon">🪙</span> 240 Robux</div>
-                    <div class="right-side">
-                        <div class="robux-price">$3.00</div>
-                        <button class="buy-btn" onclick="buyRobux('240 Robux', '$3.00')">ទិញ</button>
+
+                <!-- 240 Robux (ទូទាត់ QR Code) -->
+                <div class="roblox-card" onclick="buyRobux('240 Robux', '$3.00')">
+                    <div class="card-top">
+                        <span>ធានាមកអេងមីន ❤️</span>
+                        <div class="check-icon">✓</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <h4>240</h4>
+                            <p class="price">$3.00</p>
+                        </div>
+                        <div class="robux-logo-box">🪙</div>
                     </div>
                 </div>
-                <div class="roblox-item">
-                    <div class="robux-amount"><span class="robux-icon">🪙</span> 400 Robux</div>
-                    <div class="right-side">
-                        <div class="robux-price">$5.00</div>
-                        <button class="buy-btn" onclick="buyRobux('400 Robux', '$5.00')">ទិញ</button>
+
+                <!-- 400 Robux (ទូទាត់ QR Code) -->
+                <div class="roblox-card" onclick="buyRobux('400 Robux', '$5.00')">
+                    <div class="card-top">
+                        <span>ធានាមកអេងមីន ❤️</span>
+                        <div class="check-icon">✓</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <h4>400</h4>
+                            <p class="price">$5.00</p>
+                        </div>
+                        <div class="robux-logo-box">🪙</div>
                     </div>
                 </div>
-                <div class="roblox-item">
-                    <div class="robux-amount"><span class="robux-icon">🪙</span> 800 Robux</div>
-                    <div class="right-side">
-                        <div class="robux-price">$10.00</div>
-                        <button class="buy-btn" onclick="buyRobux('800 Robux', '$10.00')">ទិញ</button>
+
+                <!-- 800 Robux (ទូទាត់ QR Code) -->
+                <div class="roblox-card" onclick="buyRobux('800 Robux', '$10.00')">
+                    <div class="card-top">
+                        <span>ធានាមកអេងមីន ❤️</span>
+                        <div class="check-icon">✓</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <h4>800</h4>
+                            <p class="price">$10.00</p>
+                        </div>
+                        <div class="robux-logo-box">🪙</div>
                     </div>
                 </div>
-                <div class="roblox-item">
-                    <div class="robux-amount"><span class="robux-icon">🪙</span> 1000 Robux</div>
-                    <div class="right-side">
-                        <div class="robux-price">$12.50</div>
-                        <button class="buy-btn" onclick="buyRobux('1000 Robux', '$12.50')">ទិញ</button>
+
+                <!-- 1000 Robux (ទូទាត់ QR Code) -->
+                <div class="roblox-card" onclick="buyRobux('1000 Robux', '$12.50')">
+                    <div class="card-top">
+                        <span>ធានាមកអេងមីន ❤️</span>
+                        <div class="check-icon">✓</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <h4>1000</h4>
+                            <p class="price">$12.50</p>
+                        </div>
+                        <div class="robux-logo-box">🪙</div>
                     </div>
                 </div>
             </div>
