@@ -328,23 +328,43 @@
             font-size: 20px;
         }
 
+        /* 🌟 เอសហ្វects ស៊ុមពណ៌ ៧ វិលជុំវិញបែបស្លាយយឺតៗ (Rainbow Gradient Border Animation) */
         .roblox-card {
-            background: linear-gradient(145deg, #2a221b, #1e1914);
-            border: 1.5px solid #4a3c2c;
-            border-radius: 14px;
-            padding: 12px;
             position: relative;
+            border-radius: 14px;
+            padding: 2px; /* កម្រាស់ស៊ុមរត់ */
+            background: linear-gradient(60deg, red, orange, yellow, green, cyan, blue, violet, red);
+            background-size: 400% 400%;
+            animation: rainbowBorder 6s linear infinite;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
             text-decoration: none;
             display: block;
+            transition: transform 0.2s ease;
+        }
+
+        .roblox-card:active {
+            transform: scale(0.97);
+        }
+
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ផ្ទៃខាងក្នុងរបស់កាត */
+        .roblox-card-inner {
+            background: linear-gradient(145deg, #2a221b, #1e1914);
+            border-radius: 12px;
+            padding: 10px;
         }
 
         .card-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-size: 11px;
             color: #23b0ff;
             font-weight: bold;
@@ -661,7 +681,7 @@
             </div>
         </div>
 
-        <!-- Free Fire Section (បន្ថែមដល់ 5600 & 11500 Diamonds) -->
+        <!-- Free Fire Section -->
         <div id="freefire-section" class="game-section">
             <div class="section-title">💎 តម្លៃកុម្ម៉ង់ទិញ Free Fire</div>
             <div class="game-id-box">
@@ -704,49 +724,69 @@
             </div>
         </div>
 
-        <!-- Roblox Section -->
+        <!-- Roblox Section (មានស៊ុមពណ៌ ៧ វិលជុំវិញបែបស្លាយយឺតៗ) -->
         <div id="roblox-section" class="game-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
             <div class="game-grid">
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>80</h4><p class="price">$1.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>80</h4><p class="price">$1.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>160</h4><p class="price">$2.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>160</h4><p class="price">$2.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>240</h4><p class="price">$3.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>240</h4><p class="price">$3.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>400</h4><p class="price">$5.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>400</h4><p class="price">$5.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>800</h4><p class="price">$10.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>800</h4><p class="price">$10.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>1000</h4><p class="price">$12.50</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>1000</h4><p class="price">$12.50</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>1500</h4><p class="price">$18.50</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>1500</h4><p class="price">$18.50</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>2000</h4><p class="price">$24.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>2000</h4><p class="price">$24.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>3000</h4><p class="price">$36.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>3000</h4><p class="price">$36.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
                 <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
-                    <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
-                    <div class="card-body"><div class="card-info"><h4>5000</h4><p class="price">$58.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    <div class="roblox-card-inner">
+                        <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
+                        <div class="card-body"><div class="card-info"><h4>5000</h4><p class="price">$58.00</p></div><div class="robux-logo-box">🪙</div></div>
+                    </div>
                 </a>
             </div>
         </div>
