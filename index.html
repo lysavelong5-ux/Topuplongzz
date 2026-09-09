@@ -204,6 +204,38 @@
             display: block;
         }
 
+        /* 🌟 ស្តាយសម្រាប់ប្រអប់ Total Users និង Total Orders */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #242424, #1c1c1c);
+            border: 1.5px solid #333;
+            border-radius: 14px;
+            padding: 14px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        .stat-card h4 {
+            margin: 0 0 5px 0;
+            font-size: 12px;
+            color: #9e9e9e;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .stat-card .stat-value {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #1da1f2;
+        }
+
         .cards-wrapper {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -297,14 +329,34 @@
             gap: 12px;
         }
 
-        .ff-card {
-            background: linear-gradient(145deg, #9b6bc4, #7d49a7);
-            border: 1.5px solid #b98fe0;
-            border-radius: 14px;
-            padding: 14px;
+        .rainbow-card {
             position: relative;
+            border-radius: 14px;
+            padding: 2px;
+            background: linear-gradient(60deg, red, orange, yellow, green, cyan, blue, violet, red);
+            background-size: 400% 400%;
+            animation: rainbowBorder 6s linear infinite;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            transition: transform 0.2s ease;
+            display: block;
+            text-decoration: none;
+        }
+
+        .rainbow-card:active {
+            transform: scale(0.97);
+        }
+
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .ff-card-inner {
+            background: linear-gradient(145deg, #9b6bc4, #7d49a7);
+            border-radius: 12px;
+            padding: 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -328,32 +380,6 @@
             font-size: 20px;
         }
 
-        /* 🌟 เอសហ្វects ស៊ុមពណ៌ ៧ វិលជុំវិញបែបស្លាយយឺតៗ (Rainbow Gradient Border Animation) */
-        .roblox-card {
-            position: relative;
-            border-radius: 14px;
-            padding: 2px; /* កម្រាស់ស៊ុមរត់ */
-            background: linear-gradient(60deg, red, orange, yellow, green, cyan, blue, violet, red);
-            background-size: 400% 400%;
-            animation: rainbowBorder 6s linear infinite;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
-            text-decoration: none;
-            display: block;
-            transition: transform 0.2s ease;
-        }
-
-        .roblox-card:active {
-            transform: scale(0.97);
-        }
-
-        @keyframes rainbowBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* ផ្ទៃខាងក្នុងរបស់កាត */
         .roblox-card-inner {
             background: linear-gradient(145deg, #2a221b, #1e1914);
             border-radius: 12px;
@@ -666,6 +692,18 @@
             <img src="https://user30924.na.imgto.link/public/20260908/img-7970.avif" alt="Banner" class="banner-img" onerror="this.src='https://i.ibb.co/N6Qf41DC/logo.jpg'">
         </div>
 
+        <!-- 🌟 បង្ហាញ Total Users និង Total Orders នៅចំកន្លែងនេះ -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h4>Total Users</h4>
+                <p class="stat-value" id="totalUsersCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h4>Total Orders</h4>
+                <p class="stat-value" id="totalOrdersCount">0</p>
+            </div>
+        </div>
+
         <div class="cards-wrapper">
             <div class="card" onclick="selectCode(this, 'Free Fire')">
                 <h3>Free Fire</h3>
@@ -689,100 +727,116 @@
                 <input type="text" id="ffGameId" class="game-id-input" placeholder="ឧ. 1234567890">
             </div>
             <div class="game-grid">
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '25 Diamonds', '$0.30', 'ffGameId')">
-                    <div class="ff-info"><h4>25 💎</h4><p class="price">$0.30</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '25 Diamonds', '$0.30', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>25 💎</h4><p class="price">$0.30</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '100 Diamonds', '$0.95', 'ffGameId')">
-                    <div class="ff-info"><h4>100 💎</h4><p class="price">$0.95</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '100 Diamonds', '$0.95', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>100 💎</h4><p class="price">$0.95</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '310 Diamonds', '$2.94', 'ffGameId')">
-                    <div class="ff-info"><h4>310 💎</h4><p class="price">$2.94</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '310 Diamonds', '$2.94', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>310 💎</h4><p class="price">$2.94</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '520 Diamonds', '$4.80', 'ffGameId')">
-                    <div class="ff-info"><h4>520 💎</h4><p class="price">$4.80</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '520 Diamonds', '$4.80', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>520 💎</h4><p class="price">$4.80</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '1060 Diamonds', '$8.85', 'ffGameId')">
-                    <div class="ff-info"><h4>1060 💎</h4><p class="price">$8.85</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '1060 Diamonds', '$8.85', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>1060 💎</h4><p class="price">$8.85</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '2180 Diamonds', '$18.50', 'ffGameId')">
-                    <div class="ff-info"><h4>2180 💎</h4><p class="price">$18.50</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '2180 Diamonds', '$18.50', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>2180 💎</h4><p class="price">$18.50</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '5600 Diamonds', '$47.99', 'ffGameId')">
-                    <div class="ff-info"><h4>5600 💎</h4><p class="price">$47.99</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '5600 Diamonds', '$47.99', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>5600 💎</h4><p class="price">$47.99</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
-                <div class="ff-card" onclick="buyGameItem('Free Fire', '11500 Diamonds', '$95.00', 'ffGameId')">
-                    <div class="ff-info"><h4>11500 💎</h4><p class="price">$95.00</p></div>
-                    <span class="gem-icon">💎</span>
+                <div class="rainbow-card" onclick="buyGameItem('Free Fire', '11500 Diamonds', '$95.00', 'ffGameId')">
+                    <div class="ff-card-inner">
+                        <div class="ff-info"><h4>11500 💎</h4><p class="price">$95.00</p></div>
+                        <span class="gem-icon">💎</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Roblox Section (មានស៊ុមពណ៌ ៧ វិលជុំវិញបែបស្លាយយឺតៗ) -->
+        <!-- Roblox Section -->
         <div id="roblox-section" class="game-section">
             <div class="section-title">📦 តម្លៃកុម្ម៉ង់ទិញ Roblox</div>
             <div class="game-grid">
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>80</h4><p class="price">$1.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>160</h4><p class="price">$2.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>240</h4><p class="price">$3.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>400</h4><p class="price">$5.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>800</h4><p class="price">$10.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>1000</h4><p class="price">$12.50</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>1500</h4><p class="price">$18.50</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>2000</h4><p class="price">$24.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>3000</h4><p class="price">$36.00</p></div><div class="robux-logo-box">🪙</div></div>
                     </div>
                 </a>
-                <a href="https://t.me/Benzzxz" target="_blank" class="roblox-card">
+                <a href="https://t.me/Benzzxz" target="_blank" class="rainbow-card">
                     <div class="roblox-card-inner">
                         <div class="card-top"><span>ចុចដើម្បីទិញ</span><div class="check-icon">✓</div></div>
                         <div class="card-body"><div class="card-info"><h4>5000</h4><p class="price">$58.00</p></div><div class="robux-logo-box">🪙</div></div>
@@ -820,12 +874,20 @@
         let gameIdValue = "";
 
         window.onload = function() {
+            updateStatsDisplay();
             const savedUser = localStorage.getItem('longzz_username');
             if (!savedUser) {
                 document.getElementById('welcomeModal').style.display = 'flex';
             } else {
                 checkAdminAccess(savedUser);
             }
+        }
+
+        function updateStatsDisplay() {
+            const allUsers = JSON.parse(localStorage.getItem('longzz_all_users') || '[]');
+            const totalOrders = localStorage.getItem('longzz_total_orders') || '0';
+            document.getElementById('totalUsersCount').innerText = allUsers.length;
+            document.getElementById('totalOrdersCount').innerText = totalOrders;
         }
 
         function toggleMenu() {
@@ -855,6 +917,7 @@
                 allUsers.push(inputVal);
                 localStorage.setItem('longzz_all_users', JSON.stringify(allUsers));
             }
+            updateStatsDisplay();
             checkAdminAccess(inputVal);
             document.getElementById('welcomeModal').style.display = 'none';
             if (inputVal.toLowerCase() !== 'longzzspp') {
@@ -967,6 +1030,11 @@
         }
 
         function confirmPayment() {
+            // បន្ថែមចំនួន Total Orders
+            let totalOrders = parseInt(localStorage.getItem('longzz_total_orders') || '0') + 1;
+            localStorage.setItem('longzz_total_orders', totalOrders);
+            updateStatsDisplay();
+
             const username = localStorage.getItem('longzz_username') || 'Unknown';
             const fileInput = document.getElementById('receiptFile');
             const caption = `🚨 មានការបញ្ជាទិញថ្មី!\n👤 Username: ${username}\n🆔 ID Game: ${gameIdValue}\n📦 ទំនិញ: ${selectedOrder}\n✅ ស្ថានភាព: បាន Upload វិក្កយបត្រ\n⏳ សូម Admin Approve ផ្ទៀងផ្ទាត់។`;
